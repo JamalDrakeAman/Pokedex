@@ -3,14 +3,14 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     /*background-color: #0E1A21;*/
     padding: 10px;
-    background-image: url(./img/icons/pokemon-bg.jpg);
+    background-image: url(./imgs/background/pokeball-bg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
 }
 
-/*-------------------------------------All------------------------------------------------------------*/
+/*-----------------------------------------------------------------------All reusable Class---------------------------------------------------------------------*/
 
 .d-none{
     display: none !important;
@@ -19,8 +19,33 @@ body {
     display: flex !important;
 }
 
+.txt-wh{
+    color: white;
+}
 
-/*-------------------------------------All about Header------------------------------------------------------------*/
+.txt-bd{
+    font-weight: bold;
+}
+
+
+/*-----------------------------------Poke Types Color -------------------------------------*/
+.normal { background-color: #A8A77A; }
+.fire { background-color: #EE8130; }
+.water { background-color: #6390F0; }
+.grass { background-color: #7AC74C; }
+.electric { background-color: #F7D02C; }
+.ice { background-color: #96D9D6; }
+.fighting { background-color: #C22E28; }
+.poison { background-color: #A33EA1; }
+.ground { background-color: #E2BF65; }
+.flying { background-color: #A98FF3; }
+.psychic { background-color: #F95587; }
+.bug { background-color: #A6B91A; }
+.rock { background-color: #B6A136; }
+.ghost { background-color: #735797; }
+.dragon { background-color: #6F35FC; }
+
+/*----------------------------------------------------------------------All about Header---------------------------------------------------------------------------*/
 .header {
     display: flex;
     justify-content: space-between;
@@ -60,10 +85,12 @@ body {
     margin: 0 20px;
 }
 
-/*All about Section Pokedex Container*/
+/*---------------------------------------------------------All about Section Pokedex Container-----------------------------------------------------------------*/
 
 .pokedex-container {
+    box-sizing: border-box;
     display: flex;
+    justify-content: center;
     height: 100vh;
     width: 100%;
     padding: 50px;
@@ -72,18 +99,18 @@ body {
 }
 
 
-/* All about PokeCard */
+/*+++++++ All about PokeCards +++++++*/
 
 .pokemon-card {
     height: 350px;
     width: 250px;
     border: solid 2px white;
-    background-color: #0a3340;
     border-radius: 20px;
     padding: 10px 0;
 }
 
 .pokemon-card:hover{
+    opacity: 1;
     transform: scale(1.1);
     transition: all ease-in-out 250ms;
     cursor: pointer;
@@ -98,25 +125,38 @@ body {
     height: fit-content;
 }
 
-.poke-id{
-    font-weight: bold;
-    color: white;
-}
-
-.poke-name{
-    font-weight: bold;
-    color: white;
+.poke-img-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
 }
 
 .poke-img{
-    width: 100%;
-    aspect-ratio: 1/ 1;
-    background-color: black;
+    opacity: 1 !important;
+    height: 100px;
+    width: auto;
+    object-fit: cover;
+    position: relative;
 }
 
-.poke-type{
-    color: white;
+/*++++++++++++PokeCard Footer +++++++++++*/
+
+.poke-card-type-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px white;
+    border-radius: 10px;
 }
+
+.card-type-img{
+    background-color: gray;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+}
+
 
 .card-footer{
     display: flex;
@@ -127,14 +167,7 @@ body {
     background-color: #07242E;
 }
 
-.card-skills-img{
-    background-color: gray;
-    height: 45px;
-    width: 45px;
-    border-radius: 20px;
-}
-
-/* All about PokeOverlay */
+/*-------------------------------------------------------------------------All about Section Overlay Card ----------------------------------------------------*/
 
 .show-pokemon-overlay-background{
     display: none;

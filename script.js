@@ -47,12 +47,16 @@ function renderPokemon() {
        
 
         document.getElementById('pokedex-container').innerHTML += `
-        <div id="pokemon-card${i}" class="pokemon-card" onclick="showPokemonCard(${i})">
+        <div id="pokemon-card${i}" class="pokemon-card" onclick="showPokemonCard(${i})" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)">
             <div class="card-head">
-                <p class="poke-id">#${i + 1}</p>
-                <p class="poke-name">${pokemon}</p>
+                <p class="txt-wh txt-bd">#${i + 1}</p>
+                <p class="txt-wh txt-bd">${pokemon}</p>
             </div>
-            <img class="poke-img" src="" alt="">
+        
+            <div class="poke-img-box">
+                <img class="poke-img" src="./imgs/pokemons/${pokemon}.gif" alt="">
+            </div>
+            
             <div id="card-footer${i}" class="card-footer">
                 
             </div>
@@ -63,9 +67,9 @@ function renderPokemon() {
             const pokeType = pokeDetail.types[d];
             
             document.getElementById(`card-footer${i}`).innerHTML += `
-                <div>
-                    <img class="card-skills-img" src="" alt="">
-                    <p class="poke-type">${pokeType.type.name}</p>
+                <div class="poke-card-type-box">
+                    <img class="card-type-img" src="./imgs/type-icon/${pokeType.type.name}.png" alt="">
+                    <p class="txt-wh">${pokeType.type.name}</p>
                 </div>
             `
         }
