@@ -59,17 +59,20 @@ function renderPokemon() {
 
         </div>`;
 
-        pokeDetail.types.forEach(typess,i => {
-
-            let lengthOfTypes = typess[i]
-            document.getElementById(`card-footer${i}`).innerHTML = `
+        for (let d = 0; d < pokeDetail.types.length; d++) {
+            const pokeType = pokeDetail.types[d];
+            
+            document.getElementById(`card-footer${i}`).innerHTML += `
                 <div>
                     <img class="card-skills-img" src="" alt="">
-                    <p class="poke-type">${lengthOfTypes.type.name}</p>
+                    <p class="poke-type">${pokeType.type.name}</p>
                 </div>
             `
-        })
+        }
+       
     }
+    
+   
 }
 
 function showPokemonCard(i) {
