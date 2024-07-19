@@ -44,8 +44,6 @@ function renderPokemon() {
         let pokeDetail = pokemonDetails[i]
         console.log(pokeDetail);
 
-       
-
         document.getElementById('pokedex-container').innerHTML += `
         <div id="pokemon-card${i}" class="pokemon-card" onclick="showPokemonCard(${i})" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)">
             <div class="card-head">
@@ -79,10 +77,16 @@ function renderPokemon() {
    
 }
 
-function showPokemonCard(i) {
-    document.getElementById('show-pokemon-overlay-background').classList.add('d-flex')
-}
 
-function closePokemonCard() {
-    document.getElementById('show-pokemon-overlay-background').addEventListener("click", closePokemonCard).classList.remove('d-flex')
+function showPokemonCard(i){
+
+document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
+
+document.getElementById('pokemon-card-overlay-bg').addEventListener('click', function(event) {
+    const dialog = document.getElementById('pokemon-card-overlay');
+    if (!dialog.contains(event.target)) {
+        document.getElementById('pokemon-card-overlay-bg').style.display = 'none';
+    }
+});
+
 }
