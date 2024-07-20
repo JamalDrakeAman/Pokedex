@@ -1,4 +1,4 @@
-let BASE_URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=10"
+let BASE_URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20"
 let pokemons = [];
 let pokemonsURL = [];
 let pokemonDetails = [];
@@ -24,7 +24,7 @@ async function fetchPokemonData(path = "") {
 async function fetchPokemeonDetails() {
     let fetchPromises = pokemonsURL.map(url => fetch(url).then(response => response.json()));
 
-   await Promise.all(fetchPromises)
+    await Promise.all(fetchPromises)
         .then(results => {
             results.forEach(pokeDetail => {
                 pokemonDetails.push(pokeDetail)
@@ -42,6 +42,7 @@ function renderPokemon() {
     for (let i = 0; i < pokemons.length; i++) {
         let pokemon = pokemons[i];
         let pokeDetail = pokemonDetails[i]
+
         console.log(pokeDetail);
 
         document.getElementById('pokedex-container').innerHTML += `
@@ -63,7 +64,7 @@ function renderPokemon() {
 
         for (let d = 0; d < pokeDetail.types.length; d++) {
             const pokeType = pokeDetail.types[d];
-            
+
             document.getElementById(`card-footer${i}`).innerHTML += `
                 <div class="poke-card-type-box">
                     <img class="card-type-img" src="./imgs/type-icon/${pokeType.type.name}.png" alt="">
@@ -71,22 +72,46 @@ function renderPokemon() {
                 </div>
             `
         }
-       
+
     }
-    
-   
+
+
 }
 
 
-function showPokemonCard(i){
+function showPokemonCard(i) {
+    showPokemonCardDetails(i)
+    document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
 
-document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
+    document.getElementById('pokemon-card-overlay-bg').addEventListener('click', function (event) {
+        const dialog = document.getElementById('pokemon-card-overlay');
+        if (!dialog.contains(event.target)) {
+            document.getElementById('pokemon-card-overlay-bg').style.display = 'none';
+        }
+    });
 
-document.getElementById('pokemon-card-overlay-bg').addEventListener('click', function(event) {
-    const dialog = document.getElementById('pokemon-card-overlay');
-    if (!dialog.contains(event.target)) {
-        document.getElementById('pokemon-card-overlay-bg').style.display = 'none';
+}
+
+function showPokemonCardDetails(i) {
+    let pokemonId = document.getElementById('overlaycard-id');
+    let pokemonImg = document.getElementById('overlaycard-img');
+    let pokemonName = document.getElementById('overlaycard-name');
+    let pokemonTypes = document.getElementById('overlaycard-types');
+    let pokemonNavbar = document.getElementById('overlaycard-navbar');
+    
+
+    pokemonId.innerHTML = `#${i + 1}`;
+    pokemonImg.src = `./imgs/pokemons/${pokemons[i]}.gif`;
+    pokemonName.innerHTML = `${pokemons[i]}`;
+
+    pokemonTypes.innerHTML = '';
+    for (let index = 0; index < pokemonDetails[i].types.length; index++) {
+        let detail = pokemonDetails[i].types[index];
+        console.log(detail);
+        pokemonTypes.innerHTML += `
+        <div class="overlaycard-types">${detail.type.name}</div>
+        `
     }
-});
-
+    
+        
 }
