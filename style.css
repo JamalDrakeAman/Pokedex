@@ -114,12 +114,12 @@ body {
 
 .headline {
     color: white;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .headline-icon {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
 }
 
 .header-search-input {
@@ -136,7 +136,7 @@ body {
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-    height: 100vh;
+    height: min-content;
     width: 100%;
     padding: 50px;
     flex-wrap: wrap;
@@ -315,12 +315,61 @@ body {
     gap: 10px;
 }
 
+/*------------------------------------Section load Pokemon Button----------------------------*/
 
 
+.loadNextPokemons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: min-content;
+    padding: 20px;
+}
+
+.poke-load-bt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    border: solid 1px white;
+    border-radius: 20px;
+    background-color: #07242E;
+    width: 95%;
+    height: 100px;
+    cursor: pointer;
+}
+
+.pikachu-img {
+    height: 90%;
+    margin-right: 25px;
+}
+
+.pokeball-fall-img {
+    height: 50%;
+}
 
 /*--------Responsive---------*/
 
 @media(max-width: 695px) {
+
+    .headline-box {
+        flex-direction: column;
+        gap: unset;
+    }
+
+    .headline {
+        font-size: 25px;
+    }
+
+    .headline-icon {
+        height: 30px;
+        width: 30px;
+    }
+
     .pokedex-container {
         padding: 10px;
     }
@@ -358,7 +407,7 @@ body {
 
 }
 
-@media(max-width: 385px){
+@media(max-width: 385px) {
 
     .card-detail {
         gap: 5%;
