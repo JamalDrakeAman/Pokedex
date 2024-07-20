@@ -66,7 +66,7 @@ function renderPokemon() {
             const pokeType = pokeDetail.types[d];
 
             document.getElementById(`card-footer${i}`).innerHTML += `
-                <div class="poke-card-type-box">
+                <div class="poke-card-type-box ${pokeType.type.name}">
                     <img class="card-type-img" src="./imgs/type-icon/${pokeType.type.name}.png" alt="">
                     <p class="txt-wh">${pokeType.type.name}</p>
                 </div>
@@ -98,7 +98,8 @@ function showPokemonCardDetails(i) {
     let pokemonName = document.getElementById('overlaycard-name');
     let pokemonTypes = document.getElementById('overlaycard-types');
     let pokemonNavbar = document.getElementById('overlaycard-navbar');
-    
+    let pokemonCard = document.getElementById('pokemon-card-overlay');
+
 
     pokemonId.innerHTML = `#${i + 1}`;
     pokemonImg.src = `./imgs/pokemons/${pokemons[i]}.gif`;
@@ -109,9 +110,13 @@ function showPokemonCardDetails(i) {
         let detail = pokemonDetails[i].types[index];
         console.log(detail);
         pokemonTypes.innerHTML += `
-        <div class="overlaycard-types">${detail.type.name}</div>
+        <div class="overlaycard-type-box">
+         <img class="overlay-type-img" src="./imgs/type-icon/${detail.type.name}.png" alt="">
+         <p class="overlay-type-text">${detail.type.name}</p>
+        </div>
         `
+        pokemonCard.style.backgroundImage = `url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)`;
     }
-    
-        
+
+
 }
