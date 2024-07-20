@@ -149,13 +149,14 @@ body {
 .pokemon-card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 350px;
     width: 250px;
-    border: solid 1px white;
+    border: solid 2px #07242E;
     object-fit: cover;
     background-position: center;
+    background-size: cover;
     border-radius: 20px;
     overflow: hidden;
 }
@@ -164,22 +165,28 @@ body {
     transform: scale(1.1);
     transition: all ease-in-out 250ms;
     cursor: pointer;
+    filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 1.1));
 }
+
+.pokemon-card:hover .poke-img {
+    filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 1.1));
+    transition: all ease-in-out 255ms;
+}
+
 
 .card-head {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #0a3340;
     width: 100%;
-    height: fit-content;
+    height: min-content;
+    border-bottom: solid 1px #07242E;
 }
 
 .poke-img-box {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 250px;
 }
 
 .poke-img {
@@ -195,9 +202,19 @@ body {
     justify-content: space-around;
     align-items: center;
     border-radius: 20px;
+    border: solid 1px #07242E;
     height: 35px;
-    width: 35%;
+    width: 40%;
     padding: 3px;
+}
+
+.card-detail {
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 55px;
 }
 
 .card-type-img {
@@ -210,13 +227,11 @@ body {
 }
 
 
-.card-footer {
+.card-types {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
-    height: 50px;
-    background-color: #07242E;
+    margin: 5px;
 }
 
 /*-------------------------------------------------------------------------All about Section Overlay Card ----------------------------------------------------*/
@@ -305,4 +320,47 @@ body {
 
 /*--------Responsive---------*/
 
-@media(max-width: 695px) {}
+@media(max-width: 695px) {
+    .pokedex-container {
+        padding: 10px;
+    }
+
+    .pokemon-card {
+        flex-direction: column;
+        height: 250px;
+        width: 100%;
+        background-size: cover;
+    }
+
+    .poke-card-type-box {
+        height: 25px;
+        width: 75px;
+    }
+
+    .card-detail {
+        flex-direction: row-reverse;
+        justify-content: left;
+        align-items: center;
+        gap: 20%;
+    }
+
+    .card-types {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 15px;
+        margin-left: 15px;
+    }
+
+    .card-type-img {
+        height: 18px;
+        width: 18px;
+    }
+
+}
+
+@media(max-width: 385px){
+
+    .card-detail {
+        gap: 5%;
+    }
+}

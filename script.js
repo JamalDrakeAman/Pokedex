@@ -47,18 +47,22 @@ function renderPokemon() {
 
         document.getElementById('pokedex-container').innerHTML += `
         <div id="pokemon-card${i}" class="pokemon-card" onclick="showPokemonCard(${i})" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)">
-            <div class="card-head">
-                <p class="txt-wh txt-bd">#${i + 1}</p>
+            <div class="card-head ${pokemonDetails[i].types[0].type.name}">
+                <p class="txt-wh txt-bd">#${formatNumber(i + 1)}</p>
                 <p class="txt-wh txt-bd">${pokemon}</p>
             </div>
         
-            <div class="poke-img-box">
-                <img class="poke-img" src="./imgs/pokemons/${pokemon}.gif" alt="">
-            </div>
+            <div class="card-detail">
             
-            <div id="card-footer${i}" class="card-footer">
+                <div class="poke-img-box">
+                     <img class="poke-img" src="./imgs/pokemons/${pokemon}.gif" alt="">
+                </div>
+            
+                 <div id="card-footer${i}" class="card-types">
                 
-            </div>
+                 </div>
+
+            </div>     
 
         </div>`;
 
@@ -76,6 +80,11 @@ function renderPokemon() {
     }
 
 
+}
+
+// Wandelt die zahl in ein string un füllt bis auf die 3te stelle mit 0
+function formatNumber(number) {
+    return number.toString().padStart(3, '0');
 }
 
 
@@ -100,8 +109,7 @@ function showPokemonCardDetails(i) {
     let pokemonNavbar = document.getElementById('overlaycard-navbar');
     let pokemonCard = document.getElementById('pokemon-card-overlay');
 
-
-    pokemonId.innerHTML = `#${i + 1}`;
+    pokemonId.innerHTML = `#${formatNumber(i + 1)}`;
     pokemonImg.src = `./imgs/pokemons/${pokemons[i]}.gif`;
     pokemonName.innerHTML = `${pokemons[i]}`;
 
