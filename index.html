@@ -23,25 +23,47 @@
         <div id="pokemon-card-overlay-bg" class="pokemon-card-overlay-bg">
             <div id="pokemon-card-overlay" class="pokemon-card-overlay">
 
-                <p id="overlaycard-id" class="overlaycard-id">#pokeID</p>
+                <div class="overlaycard-header">
+                    <p id="overlaycard-id" class="overlaycard-id">#pokeID</p>
+                    <p id="overlaycard-name" class="overlaycard-name">Pokemon Name</p>
+                </div>
+
                 <img id="overlaycard-img" class="overlaycard-img" src="" alt="">
-                <p id="overlaycard-name" class="overlaycard-name">Pokemon Name</p>
 
                 <div id="overlaycard-types" class="overlaycard-types">
 
                 </div>
 
-                <div id="overlaycard-navbar" class="overlaycard-navbar">
-                    <div>About</div>
-                    <div>State</div>
-                    <div>Moves</div>
-                    <div>Evolutions</div>
-                    <div>Location</div>
-                </div>
+                <div class="overlaycard-info-container">
 
+                    <div id="overlaycard-navbar" class="overlaycard-navbar">
+                        <button onclick="showPokemonOverlayCardInfo('about')" class="overlaycard-info-bt">About</button>
+                        <button onclick="showPokemonOverlayCardInfo('state')" class="overlaycard-info-bt">State</button>
+                        <button onclick="showPokemonOverlayCardInfo()" class="overlaycard-info-bt">Moves</button>
+                        <button onclick="showPokemonOverlayCardInfo()" class="overlaycard-info-bt">Evolutions</button>
+                        <button onclick="showPokemonOverlayCardInfo()" class="overlaycard-info-bt">Location</button>
+                    </div>
+
+                    <div id="overlaycard-poke-info" class="overlaycard-poke-info">
+
+
+                        <!---About--<div class="about-info-box">
+                            <div class="info-category">
+                                <p><img src="./imgs/icons/weight-icon.png" alt="">Weight</p>
+                                <p>xxx</p>
+                            </div>
+                            <div class="split-box"></div>
+                            <div class="info-category">
+                                <p><img src="./imgs/icons/height-icon.png" alt="">Height</p>
+                                <p>xxx</p>
+                            </div>
+                        </div> -->
+
+                    </div>
+
+                </div>
             </div>
         </div>
-
     </section>
 
     <section id="loadNextPokemons" class="loadNextPokemons">
@@ -51,7 +73,7 @@
             <img class="pokeball-fall-img" src="./imgs/icons/falling-pokeball.gif" alt="">
         </button>
 
-        
+
     </section>
 
 

@@ -126,5 +126,43 @@ function showPokemonCardDetails(i) {
         pokemonCard.style.backgroundImage = `url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)`;
     }
 
+}
 
+function showPokemonOverlayCardInfo(info) {
+    let pokemonInfo = document.getElementById('overlaycard-poke-info');
+
+    if (info == 'about'){
+        pokemonInfo.innerHTML = aboutInfo();
+    }
+    
+}
+
+function aboutInfo(){
+return `<div class="about-info-box">
+                            <div class="info-category">
+                                <p><img src="./imgs/icons/weight-icon.png" alt="">Weight</p>
+                                <p>xxx</p>
+                            </div>
+                            <div class="split-box"></div>
+                            <div class="info-category">
+                                <p><img src="./imgs/icons/height-icon.png" alt="">Height</p>
+                                <p>xxx</p>
+                            </div>
+                        </div>`
+}
+
+function stateInfo(){
+    
+}
+
+function movesInfo(){
+    
+}
+
+function evolutionsInfo(){
+    
+}
+
+function locationInfo(){
+    
 }
