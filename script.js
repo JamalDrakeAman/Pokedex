@@ -131,8 +131,14 @@ function showPokemonCardDetails(i) {
 function showPokemonOverlayCardInfo(info) {
     let pokemonInfo = document.getElementById('overlaycard-poke-info');
 
+    pokemonInfo.innerHTML = '';
+
     if (info == 'about'){
         pokemonInfo.innerHTML = aboutInfo();
+    }
+
+    if (info == 'state'){
+        pokemonInfo.innerHTML = stateInfo();
     }
     
 }
@@ -148,11 +154,44 @@ return `<div class="about-info-box">
                                 <p><img src="./imgs/icons/height-icon.png" alt="">Height</p>
                                 <p>xxx</p>
                             </div>
-                        </div>`
+                        </div>`;
 }
 
 function stateInfo(){
-    
+    return `<div class="state-info-box">
+                            <table>
+                                <tr>
+                                    <td>HP</td>
+                                    <td>xx</td>
+                                    <td><div class="status-bar"></div></td>
+                                </tr>
+                                <tr>
+                                    <td>Attack</td>
+                                    <td>xx</td>
+                                    <td><div class="status-bar"></div></td>
+                                </tr>
+                                <tr>
+                                    <td>Defense</td>
+                                    <td>xx</td>
+                                    <td><div class="status-bar"></div></td>
+                                </tr>
+                                <tr>
+                                    <td>Sp.Atk</td>
+                                    <td>xx</td>
+                                    <td><div class="status-bar"></div></td>
+                                </tr>
+                                <tr>
+                                    <td>Sp.Def</td>
+                                    <td>xx</td>
+                                    <td><div class="status-bar"></div></td>
+                                </tr>
+                                <tr>
+                                    <td>Speed</td>
+                                    <td>xx</td>
+                                    <td><div class="status-bar"></div></td>
+                                </tr>
+                            </table>
+                        </div>`;
 }
 
 function movesInfo(){

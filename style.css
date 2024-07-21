@@ -349,7 +349,7 @@ body {
     padding: 20px 10px;
 }
 
-/*------About info box -------*/
+/*------Overlay Card  About info box -------*/
 
 .about-info-box {
     display: flex;
@@ -387,6 +387,22 @@ body {
     height: 30px;
 }
 
+/*------Overlay Card state info box--------*/
+.state-info-box{
+    display: flex;
+    align-items: center;
+    background-color: rgb(148, 148, 148);
+    width: 100%;
+    height: min-content;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.status-bar{
+    width: 300px;
+    height: 10px;
+    background-color: white;
+}
 
 /*------------------------------------Section load Pokemon Button----------------------------*/
 
