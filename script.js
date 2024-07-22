@@ -82,6 +82,56 @@ function renderPokemon() {
 
 }
 
+function renderOverlayCard(i){
+    document.getElementById('pokemon-card-overlay-container').innerHTML = `
+    <div id="pokemon-card-overlay-bg" class="pokemon-card-overlay-bg">
+            <div id="pokemon-card-overlay" class="pokemon-card-overlay" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)">
+
+                <div class="overlaycard-header">
+                    <p class="overlaycard-id">#${formatNumber(i + 1)}</p>
+                    <p class="overlaycard-name">${pokemons[i]}</p>
+                </div>
+
+                <img class="overlaycard-img" src="./imgs/pokemons/${pokemons[i]}.gif" alt="">
+
+                <div id="overlaycard-types" class="overlaycard-types">
+
+                </div>
+
+                <div class="overlaycard-info-container">
+
+                    <div id="overlaycard-navbar" class="overlaycard-navbar">
+                        <button onclick="showPokemonOverlayCardInfo(${i},'about')" class="overlaycard-info-bt">About</button>
+                        <button onclick="showPokemonOverlayCardInfo(${i},'state')" class="overlaycard-info-bt">State</button>
+                        <button onclick="showPokemonOverlayCardInfo(${i},'moves')" class="overlaycard-info-bt">Moves</button>
+                        <button onclick="showPokemonOverlayCardInfo(${i},'evolutions')" class="overlaycard-info-bt">Evolutions</button>
+                        <button onclick="showPokemonOverlayCardInfo(${i},'location')" class="overlaycard-info-bt">Location</button>
+                    </div>
+
+                    <div id="overlaycard-poke-info" class="overlaycard-poke-info">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    `
+    let pokemonTypes = document.getElementById('overlaycard-types');
+
+     pokemonTypes.innerHTML = '';
+    for (let index = 0; index < pokemonDetails[i].types.length; index++) {
+        let detail = pokemonDetails[i].types[index];
+        console.log(detail);
+        pokemonTypes.innerHTML += `
+        <div class="overlaycard-type-box">
+         <img class="overlay-type-img" src="./imgs/type-icon/${detail.type.name}.png" alt="">
+         <p class="overlay-type-text">${detail.type.name}</p>
+        </div>
+        `
+    }
+    showPokemonOverlayCardInfo(i,'about')
+}
+
 // Wandelt die zahl in ein string un füllt bis auf die 3te stelle mit 0
 function formatNumber(number) {
     return number.toString().padStart(3, '0');
@@ -89,7 +139,7 @@ function formatNumber(number) {
 
 
 function showPokemonCard(i) {
-    showPokemonCardDetails(i)
+    renderOverlayCard(i)
     document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
 
     document.getElementById('pokemon-card-overlay-bg').addEventListener('click', function (event) {
@@ -101,94 +151,78 @@ function showPokemonCard(i) {
 
 }
 
-function showPokemonCardDetails(i) {
-    let pokemonId = document.getElementById('overlaycard-id');
-    let pokemonImg = document.getElementById('overlaycard-img');
-    let pokemonName = document.getElementById('overlaycard-name');
-    let pokemonTypes = document.getElementById('overlaycard-types');
-    let pokemonNavbar = document.getElementById('overlaycard-navbar');
-    let pokemonCard = document.getElementById('pokemon-card-overlay');
-
-    pokemonId.innerHTML = `#${formatNumber(i + 1)}`;
-    pokemonImg.src = `./imgs/pokemons/${pokemons[i]}.gif`;
-    pokemonName.innerHTML = `${pokemons[i]}`;
-
-    pokemonTypes.innerHTML = '';
-    for (let index = 0; index < pokemonDetails[i].types.length; index++) {
-        let detail = pokemonDetails[i].types[index];
-        console.log(detail);
-        pokemonTypes.innerHTML += `
-        <div class="overlaycard-type-box">
-         <img class="overlay-type-img" src="./imgs/type-icon/${detail.type.name}.png" alt="">
-         <p class="overlay-type-text">${detail.type.name}</p>
-        </div>
-        `
-        pokemonCard.style.backgroundImage = `url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)`;
-    }
-
-}
-
-function showPokemonOverlayCardInfo(info) {
+function showPokemonOverlayCardInfo(i,info) {
     let pokemonInfo = document.getElementById('overlaycard-poke-info');
-
     pokemonInfo.innerHTML = '';
-
     if (info == 'about'){
-        pokemonInfo.innerHTML = aboutInfo();
+        pokemonInfo.innerHTML = aboutInfo(i);
+    } else if (info == 'state'){
+        pokemonInfo.innerHTML = stateInfo(i);
+    } else if (info == 'moves'){
+        pokemonInfo.innerHTML = movesInfo(i);
+    } else if (info == 'evolutions'){
+        pokemonInfo.innerHTML = evolutionsInfo(i);
+    } else if (info == 'location'){
+        pokemonInfo.innerHTML = locationInfo(i);
     }
-
-    if (info == 'state'){
-        pokemonInfo.innerHTML = stateInfo();
-    }
-    
 }
 
-function aboutInfo(){
+function aboutInfo(i){
 return `<div class="about-info-box">
                             <div class="info-category">
                                 <p><img src="./imgs/icons/weight-icon.png" alt="">Weight</p>
-                                <p>xxx</p>
+                                <p>${pokemonDetails[i].weight}kg</p>
                             </div>
                             <div class="split-box"></div>
                             <div class="info-category">
                                 <p><img src="./imgs/icons/height-icon.png" alt="">Height</p>
-                                <p>xxx</p>
+                                <p>${pokemonDetails[i].height}m</p>
                             </div>
                         </div>`;
 }
 
-function stateInfo(){
+function stateInfo(i){
     return `<div class="state-info-box">
                             <table>
                                 <tr>
                                     <td>HP</td>
-                                    <td>xx</td>
-                                    <td><div class="status-bar"></div></td>
+                                    <td>${pokemonDetails[i].stats[0].base_stat}</td>
+                                    <td>  <div class="status-bar"> <div></div> </div></td>
                                 </tr>
                                 <tr>
                                     <td>Attack</td>
-                                    <td>xx</td>
-                                    <td><div class="status-bar"></div></td>
+                                    <td>${pokemonDetails[i].stats[1].base_stat}</td>
+                                    <td><div class="status-bar">
+                                    <div></div>
+                                    </div></td>
                                 </tr>
                                 <tr>
                                     <td>Defense</td>
-                                    <td>xx</td>
-                                    <td><div class="status-bar"></div></td>
+                                    <td>${pokemonDetails[i].stats[2].base_stat}</td>
+                                    <td><div class="status-bar">
+                                    <div></div>
+                                    </div></td>
                                 </tr>
                                 <tr>
                                     <td>Sp.Atk</td>
-                                    <td>xx</td>
-                                    <td><div class="status-bar"></div></td>
+                                    <td>${pokemonDetails[i].stats[3].base_stat}</td>
+                                    <td><div class="status-bar">
+                                    <div></div>
+                                    </div></td>
                                 </tr>
                                 <tr>
                                     <td>Sp.Def</td>
-                                    <td>xx</td>
-                                    <td><div class="status-bar"></div></td>
+                                    <td>${pokemonDetails[i].stats[4].base_stat}</td>
+                                    <td><div class="status-bar">
+                                    <div></div>
+                                    </div></td>
                                 </tr>
                                 <tr>
                                     <td>Speed</td>
-                                    <td>xx</td>
-                                    <td><div class="status-bar"></div></td>
+                                    <td>${pokemonDetails[i].stats[5].base_stat}</td>
+                                    <td><div class="status-bar">
+                                    <div></div>
+                                    </div></td>
                                 </tr>
                             </table>
                         </div>`;
