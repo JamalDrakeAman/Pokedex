@@ -46,7 +46,10 @@ function renderPokemon() {
         console.log(pokeDetail);
 
         document.getElementById('pokedex-container').innerHTML += `
-        <div id="pokemon-card${i}" class="pokemon-card" onclick="showPokemonCard(${i})" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)">
+        <div id="pokemon-card${i}" class="pokemon-card" onclick="showPokemonCard(${i})">
+
+           <div class="pokemon-card-bg" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)"></div>
+
             <div class="card-head ${pokemonDetails[i].types[0].type.name}">
                 <p class="txt-wh txt-bd">#${formatNumber(i + 1)}</p>
                 <p class="txt-wh txt-bd">${pokemon}</p>
@@ -82,7 +85,7 @@ function renderPokemon() {
 
 }
 
-function renderOverlayCard(i){
+function renderOverlayCard(i) {
     document.getElementById('pokemon-card-overlay-container').innerHTML = `
     <div id="pokemon-card-overlay-bg" class="pokemon-card-overlay-bg">
             <div id="pokemon-card-overlay" class="pokemon-card-overlay" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)">
@@ -94,11 +97,15 @@ function renderOverlayCard(i){
 
                 <img class="overlaycard-img" src="./imgs/pokemons/${pokemons[i]}.gif" alt="">
 
-                <div id="overlaycard-types" class="overlaycard-types">
-
-                </div>
+                
 
                 <div class="overlaycard-info-container">
+
+                   <div class="next-pokemon-container">
+                    <img class="next-icon" onclick="goBackward(i)" src="./imgs/icons/left-icon.png" alt="">
+                    <img class="next-icon" onclick="goForward(i)" src="./imgs/icons/right-icon.png" alt="">
+                   </div>
+                
 
                     <div id="overlaycard-navbar" class="overlaycard-navbar">
                         <button onclick="showPokemonOverlayCardInfo(${i},'about')" class="overlaycard-info-bt">About</button>
@@ -106,6 +113,10 @@ function renderOverlayCard(i){
                         <button onclick="showPokemonOverlayCardInfo(${i},'moves')" class="overlaycard-info-bt">Moves</button>
                         <button onclick="showPokemonOverlayCardInfo(${i},'evolutions')" class="overlaycard-info-bt">Evolutions</button>
                         <button onclick="showPokemonOverlayCardInfo(${i},'location')" class="overlaycard-info-bt">Location</button>
+                    </div>
+
+                    <div id="overlaycard-types" class="overlaycard-types">
+
                     </div>
 
                     <div id="overlaycard-poke-info" class="overlaycard-poke-info">
@@ -118,18 +129,18 @@ function renderOverlayCard(i){
     `
     let pokemonTypes = document.getElementById('overlaycard-types');
 
-     pokemonTypes.innerHTML = '';
+    pokemonTypes.innerHTML = '';
     for (let index = 0; index < pokemonDetails[i].types.length; index++) {
         let detail = pokemonDetails[i].types[index];
         console.log(detail);
         pokemonTypes.innerHTML += `
-        <div class="overlaycard-type-box">
+        <div class="overlaycard-type-box ${detail.type.name}">
          <img class="overlay-type-img" src="./imgs/type-icon/${detail.type.name}.png" alt="">
          <p class="overlay-type-text">${detail.type.name}</p>
         </div>
         `
     }
-    showPokemonOverlayCardInfo(i,'about')
+    showPokemonOverlayCardInfo(i, 'about')
 }
 
 // Wandelt die zahl in ein string un füllt bis auf die 3te stelle mit 0
@@ -151,24 +162,36 @@ function showPokemonCard(i) {
 
 }
 
-function showPokemonOverlayCardInfo(i,info) {
+function goForward(i){
+    let currentPokemon = i + 1;
+    renderOverlayCard(currentPokemon)
+
+}
+
+function goBackward(){
+    let currentPokemon = i - 1;
+    renderOverlayCard(currentPokemon)
+
+}
+
+function showPokemonOverlayCardInfo(i, info) {
     let pokemonInfo = document.getElementById('overlaycard-poke-info');
     pokemonInfo.innerHTML = '';
-    if (info == 'about'){
+    if (info == 'about') {
         pokemonInfo.innerHTML = aboutInfo(i);
-    } else if (info == 'state'){
+    } else if (info == 'state') {
         pokemonInfo.innerHTML = stateInfo(i);
-    } else if (info == 'moves'){
+    } else if (info == 'moves') {
         pokemonInfo.innerHTML = movesInfo(i);
-    } else if (info == 'evolutions'){
+    } else if (info == 'evolutions') {
         pokemonInfo.innerHTML = evolutionsInfo(i);
-    } else if (info == 'location'){
+    } else if (info == 'location') {
         pokemonInfo.innerHTML = locationInfo(i);
     }
 }
 
-function aboutInfo(i){
-return `<div class="about-info-box">
+function aboutInfo(i) {
+    return `<div class="about-info-box">
                             <div class="info-category">
                                 <p><img src="./imgs/icons/weight-icon.png" alt="">Weight</p>
                                 <p>${pokemonDetails[i].weight}kg</p>
@@ -181,61 +204,63 @@ return `<div class="about-info-box">
                         </div>`;
 }
 
-function stateInfo(i){
+function stateInfo(i) {
     return `<div class="state-info-box">
                             <table>
                                 <tr>
                                     <td>HP</td>
                                     <td>${pokemonDetails[i].stats[0].base_stat}</td>
-                                    <td>  <div class="status-bar"> <div></div> </div></td>
+                                    <td>  <div class="status-bar"> 
+                                    <div class="status" style="width:${pokemonDetails[i].stats[0].base_stat}%"></div> 
+                                    </div></td>
                                 </tr>
                                 <tr>
                                     <td>Attack</td>
                                     <td>${pokemonDetails[i].stats[1].base_stat}</td>
                                     <td><div class="status-bar">
-                                    <div></div>
+                                    <div class="status" style="width:${pokemonDetails[i].stats[1].base_stat}%"></div>
                                     </div></td>
                                 </tr>
                                 <tr>
                                     <td>Defense</td>
                                     <td>${pokemonDetails[i].stats[2].base_stat}</td>
                                     <td><div class="status-bar">
-                                    <div></div>
+                                    <div class="status" style="width:${pokemonDetails[i].stats[2].base_stat}%"></div>
                                     </div></td>
                                 </tr>
                                 <tr>
                                     <td>Sp.Atk</td>
                                     <td>${pokemonDetails[i].stats[3].base_stat}</td>
                                     <td><div class="status-bar">
-                                    <div></div>
+                                    <div class="status" style="width:${pokemonDetails[i].stats[3].base_stat}%"></div>
                                     </div></td>
                                 </tr>
                                 <tr>
                                     <td>Sp.Def</td>
                                     <td>${pokemonDetails[i].stats[4].base_stat}</td>
                                     <td><div class="status-bar">
-                                    <div></div>
+                                    <div class="status" style="width:${pokemonDetails[i].stats[4].base_stat}%"></div>
                                     </div></td>
                                 </tr>
                                 <tr>
                                     <td>Speed</td>
                                     <td>${pokemonDetails[i].stats[5].base_stat}</td>
                                     <td><div class="status-bar">
-                                    <div></div>
+                                    <div class="status" style="width:${pokemonDetails[i].stats[5].base_stat}%"></div>
                                     </div></td>
                                 </tr>
                             </table>
                         </div>`;
 }
 
-function movesInfo(){
-    
+function movesInfo() {
+
 }
 
-function evolutionsInfo(){
-    
+function evolutionsInfo() {
+
 }
 
-function locationInfo(){
-    
+function locationInfo() {
+
 }
