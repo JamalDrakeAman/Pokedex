@@ -86,7 +86,8 @@ function renderPokemon() {
 }
 
 function renderOverlayCard(i) {
-    document.getElementById('pokemon-card-overlay-container').innerHTML = `
+    let OverlayCard = document.getElementById('pokemon-card-overlay-container');
+    OverlayCard.innerHTML = `
     <div id="pokemon-card-overlay-bg" class="pokemon-card-overlay-bg">
             <div id="pokemon-card-overlay" class="pokemon-card-overlay" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)">
 
@@ -102,8 +103,8 @@ function renderOverlayCard(i) {
                 <div class="overlaycard-info-container">
 
                    <div class="next-pokemon-container">
-                    <img class="next-icon" onclick="goBackward(i)" src="./imgs/icons/left-icon.png" alt="">
-                    <img class="next-icon" onclick="goForward(i)" src="./imgs/icons/right-icon.png" alt="">
+                    <img id="goBack" class="next-icon" onclick="goBackward(${i})" src="./imgs/icons/left-icon.png" alt="">
+                    <img id="goForward" class="next-icon" onclick="goForward(${i})" src="./imgs/icons/right-icon.png" alt="">
                    </div>
                 
 
@@ -153,6 +154,17 @@ function showPokemonCard(i) {
     renderOverlayCard(i)
     document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
 
+    
+    document.getElementById('goForward').addEventListener('click',
+        function (event) {
+            event.stopPropagation();
+        });
+
+    document.getElementById('goBack').addEventListener('click',
+        function (event) {
+            event.stopPropagation();
+        });
+
     document.getElementById('pokemon-card-overlay-bg').addEventListener('click', function (event) {
         const dialog = document.getElementById('pokemon-card-overlay');
         if (!dialog.contains(event.target)) {
@@ -162,16 +174,14 @@ function showPokemonCard(i) {
 
 }
 
-function goForward(i){
+function goForward(i) {
     let currentPokemon = i + 1;
-    renderOverlayCard(currentPokemon)
-
+    showPokemonCard(currentPokemon);
 }
 
-function goBackward(){
+function goBackward(i) {
     let currentPokemon = i - 1;
-    renderOverlayCard(currentPokemon)
-
+    showPokemonCard(currentPokemon);
 }
 
 function showPokemonOverlayCardInfo(i, info) {
