@@ -3,11 +3,13 @@ let pokemons = [];
 let pokemonsURL = [];
 let pokemonDetails = [];
 
+
 async function init() {
     await fetchPokemonData();
     await fetchPokemeonDetails();
     renderPokemon()
 }
+
 
 async function fetchPokemonData(path = "") {
     let response = await fetch(BASE_URL + path + '.json');
@@ -20,6 +22,7 @@ async function fetchPokemonData(path = "") {
 
     });
 }
+
 
 async function fetchPokemeonDetails() {
     let fetchPromises = pokemonsURL.map(url => fetch(url).then(response => response.json()));
@@ -85,6 +88,7 @@ function renderPokemon() {
 
 }
 
+
 function renderOverlayCard(i) {
     let OverlayCard = document.getElementById('pokemon-card-overlay-container');
     OverlayCard.innerHTML = `
@@ -147,6 +151,7 @@ function renderOverlayCard(i) {
     showPokemonOverlayCardInfo(i, 'about')
 }
 
+
 // Wandelt die zahl in ein string un füllt bis auf die 3te stelle mit 0
 function formatNumber(number) {
     return number.toString().padStart(3, '0');
@@ -179,15 +184,18 @@ function showPokemonCard(i) {
 
 }
 
+
 function goForward(i) {
     let currentPokemon = i + 1;
     showPokemonCard(currentPokemon);
 }
 
+
 function goBackward(i) {
     let currentPokemon = i - 1;
     showPokemonCard(currentPokemon);
 }
+
 
 function showPokemonOverlayCardInfo(i, info) {
     let pokemonInfo = document.getElementById('overlaycard-poke-info');
@@ -203,8 +211,10 @@ function showPokemonOverlayCardInfo(i, info) {
         pokemonInfo.innerHTML = evolutionsInfo(i);
     } else if (info == 'location') {
         pokemonInfo.innerHTML = locationInfo(i);
+        getLocations(i);
     }
 }
+
 
 function aboutInfo(i) {
     let pokemonWeight = pokemonDetails[i].weight / 10;
@@ -221,6 +231,7 @@ function aboutInfo(i) {
                             </div>
                         </div>`;
 }
+
 
 function stateInfo(i) {
     return `<div class="state-info-box">
@@ -272,7 +283,7 @@ function stateInfo(i) {
 }
 
 
-function renderMoves(i){
+function renderMoves(i) {
     let moves = pokemonDetails[i].moves
     for (let m = 0; m < moves.length; m++) {
         let move = moves[m];
@@ -283,19 +294,39 @@ function renderMoves(i){
     }
 }
 
+
 function movesInfo(i) {
-    
-
     return `<div class="moves-info-box">
-                    
                         <ul id="moves-list">
-                        
                         </ul>
-
-                    </div>`;
+            </div>`;
 }
 
-function evolutionsInfo() {
+
+async function getEvolutions(i) {
+    try {
+        let response = await fetch(`https://pokeapi.co/api/v2/evolution-chain/${i + 1}`);
+        let responseAsJson = await response.json();
+        return responseAsJson;
+
+    }
+    catch {
+        console.log('Pokemon Daten nicht gefunden');
+    }
+}
+
+
+async function evolutionsInfo(i) {
+    let evoJson = await getEvolutions(i);
+    console.log(evoJson.chain);
+    console.log(evoJson.chain.evolves_to[0].species.name);
+
+    for (let e = 0; e < evoJson.chain.length; e++) {
+        let evolu = evoJson.chain[e];
+        console.log(evolu);
+
+    }
+
     return ` <div class="evolutions-info-box">
 
                         <div class="evolutions-box">
@@ -338,6 +369,26 @@ function evolutionsInfo() {
                     </div>`
 }
 
-function locationInfo() {
 
+async function getLocations(i) {
+    try {
+        let response = await fetch(`https://pokeapi.co/api/v2/location/${i + 1}`);
+        let responseAsJson = await response.json();
+        console.log(responseAsJson);
+        console.log(responseAsJson.name);
+        document.getElementById('location-name').innerHTML = `${responseAsJson.name}`
+
+    }
+    catch {
+        console.log('Pokemon Daten nicht gefunden');
+    }
+}
+
+
+function locationInfo(i) {
+    return `
+    <div class="location-info-box">
+        <p id="location-name"></p>
+    </div>
+    `
 }
