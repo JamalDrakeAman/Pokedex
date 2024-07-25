@@ -28,7 +28,7 @@ body {
     font-weight: bold;
 }
 
-.center{
+.center {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,7 +180,7 @@ body {
     transition: all ease-in-out 255ms;
 }
 
-.pokemon-card-bg{
+.pokemon-card-bg {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -288,23 +288,32 @@ body {
 /*---------Overlay Card contents---------*/
 
 .overlaycard-header {
+    width: 100%;
+}
+
+.overlaycard-name-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
+    width: 100%;
 }
 
 .overlaycard-id {
     font-weight: bold;
     font-size: 25px;
     margin: 0;
+    color: white;
+    filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 1.5));
 }
 
 .overlaycard-name {
     font-size: 35px;
     font-weight: bold;
     margin: 0;
+    color: white;
+    filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 1.5));
 }
 
 .overlaycard-img {
@@ -313,10 +322,10 @@ body {
 
 .overlaycard-types {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     width: 100%;
     padding: 10px 0;
+    gap: 5px;
 }
 
 .overlaycard-type-box {
@@ -325,11 +334,12 @@ body {
     align-items: center;
     border: solid 2px black;
     border-radius: 20px;
-    width: 30%;
-    height: 40px;
+    width: 25%;
+    height: 30px;
     padding: 2px;
-
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 1.5))
 }
+
 
 .overlay-type-img {
     height: 35px;
@@ -348,14 +358,14 @@ body {
     border-radius: 20px;
 }
 
-.next-pokemon-container{
+.next-pokemon-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
     padding: 0 0 20px 0;
 }
 
-.next-icon{
+.next-icon {
     width: 40px;
     background-color: blanchedalmond;
     border-radius: 30px;
@@ -437,25 +447,37 @@ body {
     padding: 10px;
 }
 
+
 .status-bar {
     display: flex;
     align-items: center;
-    width: 300px;
+    width: 250px;
     height: 10px;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.3);
     padding: 1px;
 }
 
-.status{
+.status {
     background-color: #07242E;
     height: 10px;
     border-radius: 5px;
     transition: all 255ms;
 }
 
+/*-----Overlay Card moves info box---------*/
+.moves-info-box {
+    display: flex;
+    align-items: center;
+    background-color: rgb(148, 148, 148);
+    width: 100%;
+    height: min-content;
+    border-radius: 20px;
+    padding: 10px;
+}
+
 /*-----------Overlay Card evolutions info box------------------*/
-.evolutions-info-box{
+.evolutions-info-box {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -465,7 +487,7 @@ body {
     border-radius: 20px;
 }
 
-.evolutions-box{
+.evolutions-box {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -476,31 +498,31 @@ body {
     border-radius: 20px;
 }
 
-.evo-img{
+.evo-img {
     background-color: black;
     width: 50px;
     height: 50px;
 }
 
-.evo-name-box{
+.evo-name-box {
     display: flex;
     font-size: 14px;
     color: white;
 }
 
-.evo-name-box p{
+.evo-name-box p {
     margin: 0;
 }
 
 
-.evo-types-box{
+.evo-types-box {
     display: flex;
     font-size: 14px;
     justify-content: space-between;
     color: white;
 }
 
-.evo-types-box p{
+.evo-types-box p {
     margin: 0;
 }
 

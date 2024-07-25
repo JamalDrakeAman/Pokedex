@@ -92,8 +92,15 @@ function renderOverlayCard(i) {
             <div id="pokemon-card-overlay" class="pokemon-card-overlay" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)">
 
                 <div class="overlaycard-header">
-                    <p class="overlaycard-id">#${formatNumber(i + 1)}</p>
-                    <p class="overlaycard-name">${pokemons[i]}</p>
+                     <div class="overlaycard-name-container">
+                        <p class="overlaycard-id">#${formatNumber(i + 1)}</p>
+                        <p class="overlaycard-name">${pokemons[i]}</p>
+                     </div>
+
+                     <div id="overlaycard-types" class="overlaycard-types">
+
+                      </div>
+
                 </div>
 
                 <img class="overlaycard-img" src="./imgs/pokemons/${pokemons[i]}.gif" alt="">
@@ -114,10 +121,6 @@ function renderOverlayCard(i) {
                         <button onclick="showPokemonOverlayCardInfo(${i},'moves')" class="overlaycard-info-bt">Moves</button>
                         <button onclick="showPokemonOverlayCardInfo(${i},'evolutions')" class="overlaycard-info-bt">Evolutions</button>
                         <button onclick="showPokemonOverlayCardInfo(${i},'location')" class="overlaycard-info-bt">Location</button>
-                    </div>
-
-                    <div id="overlaycard-types" class="overlaycard-types">
-
                     </div>
 
                     <div id="overlaycard-poke-info" class="overlaycard-poke-info">
@@ -153,8 +156,9 @@ function formatNumber(number) {
 function showPokemonCard(i) {
     renderOverlayCard(i)
     document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
+    document.getElementById('body').style.overflowY = 'hidden';
 
-    
+
     document.getElementById('goForward').addEventListener('click',
         function (event) {
             event.stopPropagation();
@@ -169,6 +173,7 @@ function showPokemonCard(i) {
         const dialog = document.getElementById('pokemon-card-overlay');
         if (!dialog.contains(event.target)) {
             document.getElementById('pokemon-card-overlay-bg').style.display = 'none';
+            document.getElementById('body').style.overflowY = 'visible';
         }
     });
 
@@ -193,6 +198,7 @@ function showPokemonOverlayCardInfo(i, info) {
         pokemonInfo.innerHTML = stateInfo(i);
     } else if (info == 'moves') {
         pokemonInfo.innerHTML = movesInfo(i);
+        renderMoves(i);
     } else if (info == 'evolutions') {
         pokemonInfo.innerHTML = evolutionsInfo(i);
     } else if (info == 'location') {
@@ -201,15 +207,17 @@ function showPokemonOverlayCardInfo(i, info) {
 }
 
 function aboutInfo(i) {
+    let pokemonWeight = pokemonDetails[i].weight / 10;
+    let pokemeonHeight = pokemonDetails[i].height / 10;
     return `<div class="about-info-box">
                             <div class="info-category">
                                 <p><img src="./imgs/icons/weight-icon.png" alt="">Weight</p>
-                                <p>${pokemonDetails[i].weight}kg</p>
+                                <p>${pokemonWeight}kg</p>
                             </div>
                             <div class="split-box"></div>
                             <div class="info-category">
                                 <p><img src="./imgs/icons/height-icon.png" alt="">Height</p>
-                                <p>${pokemonDetails[i].height}m</p>
+                                <p>${pokemeonHeight}m</p>
                             </div>
                         </div>`;
 }
@@ -263,12 +271,71 @@ function stateInfo(i) {
                         </div>`;
 }
 
-function movesInfo() {
 
+function renderMoves(i){
+    let moves = pokemonDetails[i].moves
+    for (let m = 0; m < moves.length; m++) {
+        let move = moves[m];
+
+        document.getElementById('moves-list').innerHTML += `<li>${move.move.name}</li>`
+
+
+    }
+}
+
+function movesInfo(i) {
+    
+
+    return `<div class="moves-info-box">
+                    
+                        <ul id="moves-list">
+                        
+                        </ul>
+
+                    </div>`;
 }
 
 function evolutionsInfo() {
+    return ` <div class="evolutions-info-box">
 
+                        <div class="evolutions-box">
+                            <img class="evo-img" src="" alt="">
+                            <div class="evo-name-box">
+                                <p>PokeName</p><p>pokeID</p>
+                            </div>
+                            <div class="evo-types-box">
+                                <p>Grass</p>
+                                <p>poison</p>
+                            </div>
+
+                        </div>
+
+                        <div class="evolutions-box">
+                            <img class="evo-img" src="" alt="">
+                            <div class="evo-name-box">
+                                <p>PokeName</p><p>pokeID</p>
+                            </div>
+                            <div class="evo-types-box">
+                                <p>Grass</p>
+                                <p>poison</p>
+                            </div>
+
+                        </div>
+
+                        <div class="evolutions-box">
+                            <img class="evo-img" src="" alt="">
+                            <div class="evo-name-box">
+                                <p>PokeName</p><p>pokeID</p>
+                            </div>
+                            <div class="evo-types-box">
+                                <p>Grass</p>
+                                <p>poison</p>
+                            </div>
+
+                        </div>
+
+
+                    </div>`
 }
 
 function locationInfo() {
