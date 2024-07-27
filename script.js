@@ -197,7 +197,7 @@ function goBackward(i) {
 }
 
 
-function showPokemonOverlayCardInfo(i, info) {
+async function showPokemonOverlayCardInfo(i, info) {
     let pokemonInfo = document.getElementById('overlaycard-poke-info');
     pokemonInfo.innerHTML = '';
     if (info == 'about') {
@@ -295,39 +295,91 @@ function renderMoves(i) {
 }
 
 
-function movesInfo(i) {
+function movesInfo() {
     return `<div class="moves-info-box">
                         <ul id="moves-list">
                         </ul>
             </div>`;
 }
 
+/**----------------------------------- --------------------------------------*/
+let allEvolutions = [];
 
-async function getEvolutions(i) {
-    try {
-        let response = await fetch(`https://pokeapi.co/api/v2/evolution-chain/${i + 1}`);
-        let responseAsJson = await response.json();
-        return responseAsJson;
+
+//Laden aller Evolutionsketten
+async function loadAllEvolutions() {
+    let promises = [];
+    for (let i = 1; i < 10; i++) {
+        promises.push(fetch('https://pokeapi.co/api/v2/evolution-chain/' + i).then(r => r.json()));
 
     }
-    catch {
-        console.log('Pokemon Daten nicht gefunden');
+    allEvolutions = await Promise.all(promises);
+    console.log(allEvolutions);
+}
+
+/*---------------------------------------------------------------------------*/
+
+
+// Hilfsfunktion, um ein Pokémon rekursiv in einer Kette zu finden
+// Helper function to find a Pokémon in a chain recursively
+
+function findInChain(chain, name) {
+    if (chain.species.name === name) {
+        return chain;
+    }
+    for (let evolve of chain.evolves_to) {
+        const result = findInChain(evolve, name);
+        if (result) {
+            return result;
+        }
+    }
+    return null;
+}
+
+
+function findEvolutionChain(pokemonName) {
+
+    // Iteriere durch alle Evolutionen, um das passende Pokémon zu finden
+    // Iterate through all evolutions to find the matching Pokémon
+
+    for (let evolution of allEvolutions) {
+        const result = findInChain(evolution.chain, pokemonName);
+        if (result) {
+            return result;
+        }
+    }
+
+    return null; // Null zurückgeben, wenn das Pokémon nicht gefunden wird    // Return null if Pokémon is not found
+}
+
+// Beispielaufruf
+const evolutionChain = findEvolutionChain('bulbasaur');
+console.log(evolutionChain);
+
+
+/**------------------------------------------------------- */
+
+let currentEvos = [];
+// Rekursive Funktion zum Durchlaufen der Evolutionskette
+function logEvolutionChain(chain) {
+    console.log(chain.species.name);
+    currentEvos.push(chain.species.name)
+    for (let evolve of chain.evolves_to) {
+        logEvolutionChain(evolve);
     }
 }
 
 
+/***_________________________________________ */
+
 async function evolutionsInfo(i) {
-    let evoJson = await getEvolutions(i);
-    console.log(evoJson.chain);
-    console.log(evoJson.chain.evolves_to[0].species.name);
-
-    for (let e = 0; e < evoJson.chain.length; e++) {
-        let evolu = evoJson.chain[e];
-        console.log(evolu);
-
-    }
-
-    return ` <div class="evolutions-info-box">
+    await loadAllEvolutions()
+    let pokemonChain = findEvolutionChain(pokemons[i]);
+    console.log(pokemonChain);
+    currentEvos = [];
+    logEvolutionChain(pokemonChain)
+        
+    return ` <div class="evolutions-info-box" id="evolutions-info-box">
 
                         <div class="evolutions-box">
                             <img class="evo-img" src="" alt="">
@@ -340,31 +392,6 @@ async function evolutionsInfo(i) {
                             </div>
 
                         </div>
-
-                        <div class="evolutions-box">
-                            <img class="evo-img" src="" alt="">
-                            <div class="evo-name-box">
-                                <p>PokeName</p><p>pokeID</p>
-                            </div>
-                            <div class="evo-types-box">
-                                <p>Grass</p>
-                                <p>poison</p>
-                            </div>
-
-                        </div>
-
-                        <div class="evolutions-box">
-                            <img class="evo-img" src="" alt="">
-                            <div class="evo-name-box">
-                                <p>PokeName</p><p>pokeID</p>
-                            </div>
-                            <div class="evo-types-box">
-                                <p>Grass</p>
-                                <p>poison</p>
-                            </div>
-
-                        </div>
-
 
                     </div>`
 }
@@ -385,7 +412,7 @@ async function getLocations(i) {
 }
 
 
-function locationInfo(i) {
+function locationInfo() {
     return `
     <div class="location-info-box">
         <p id="location-name"></p>
