@@ -1,4 +1,4 @@
-let BASE_URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20"
+let BASE_URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=151"
 let pokemons = [];
 let pokemonsURL = [];
 let pokemonDetails = [];
@@ -11,8 +11,10 @@ let currentEvos = [];
 // -------------------------------------------------------------
 
 async function init() {
+    document.getElementById('loadingScreen').classList.remove('d-none');
     await fetchPokemonData();
     await fetchPokemeonDetails();
+    document.getElementById('loadingScreen').classList.add('d-none');
     renderPokemon()
 }
 
@@ -220,6 +222,11 @@ function formatNumber(number) {
     return number.toString().padStart(3, '0');
 }
 
+let loudLimit = 20;
+
+function loadMorePokemon(){
+    
+}
 
 // --------------------------------------------------------------------
 //               Find and Show Evolutions Functions
