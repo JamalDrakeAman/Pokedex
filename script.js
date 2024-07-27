@@ -6,7 +6,10 @@ let allEvolutions = [];
 let currentEvos = [];
 
 
-// Start Code
+// -----------------------------------------------------------
+//                   Start Code
+// -------------------------------------------------------------
+
 async function init() {
     await fetchPokemonData();
     await fetchPokemeonDetails();
@@ -14,9 +17,9 @@ async function init() {
 }
 
 
-// ----------------------------
-//      Fetch Data Functions
-// ----------------------------
+// -----------------------------------------------------------
+//                   Fetch Data Functions
+// -------------------------------------------------------------
 
 async function fetchPokemonData(path = "") {
     let response = await fetch(BASE_URL + path + '.json');
@@ -74,9 +77,9 @@ async function getLocations(i) {
 }
 
 
-// ----------------------------
-//         Render Functions
-// ----------------------------
+// ------------------------------------------------------------
+//                      Render Functions
+// ------------------------------------------------------------
 
 
 function renderPokemon() {
@@ -110,12 +113,6 @@ function renderOverlayCard(i) {
 }
 
 
-// Wandelt die zahl in ein string un füllt bis auf die 3te stelle mit 0
-function formatNumber(number) {
-    return number.toString().padStart(3, '0');
-}
-
-
 function showPokemonCard(i) {
     renderOverlayCard(i)
     document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
@@ -146,17 +143,10 @@ function renderMoves(i) {
     }
 }
 
-function showCurrentEvo() {
-    for (let i = 0; i < currentEvos.length; i++) {
-        let evo = currentEvos[i];
-        document.getElementById('evolutions-info-box').innerHTML += showCurrentEvoHTML(evo);
-    }
-}
 
-
-// ------------------------------------------------------
-//              OverlayCard Functions
-//--------------------------------------------------------
+// ---------------------------------------------------------------------------------------
+//                               OverlayCard Functions
+//----------------------------------------------------------------------------------------
 
 async function showPokemonOverlayCardInfo(i, info) {
     let pokemonInfo = document.getElementById('overlaycard-poke-info');
@@ -221,6 +211,15 @@ function goBackward(i) {
     showPokemonCard(currentPokemon);
 }
 
+// ------------------------------------------------------------
+//                      Helper Functions
+// ------------------------------------------------------------
+
+// Wandelt die zahl in ein string un füllt bis auf die 3te stelle mit 0
+function formatNumber(number) {
+    return number.toString().padStart(3, '0');
+}
+
 
 // --------------------------------------------------------------------
 //               Find and Show Evolutions Functions
@@ -261,6 +260,14 @@ function logEvolutionChain(chain) {
     currentEvos.push(chain.species.name)
     for (let evolve of chain.evolves_to) {
         logEvolutionChain(evolve);
+    }
+}
+
+
+function showCurrentEvo() {
+    for (let i = 0; i < currentEvos.length; i++) {
+        let evo = currentEvos[i];
+        document.getElementById('evolutions-info-box').innerHTML += showCurrentEvoHTML(evo);
     }
 }
 
