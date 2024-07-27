@@ -208,7 +208,8 @@ async function showPokemonOverlayCardInfo(i, info) {
         pokemonInfo.innerHTML = movesInfo(i);
         renderMoves(i);
     } else if (info == 'evolutions') {
-        pokemonInfo.innerHTML = evolutionsInfo(i);
+        pokemonInfo.innerHTML = await evolutionsInfo(i);
+        showCurrentEvo()
     } else if (info == 'location') {
         pokemonInfo.innerHTML = locationInfo(i);
         getLocations(i);
@@ -369,6 +370,23 @@ function logEvolutionChain(chain) {
     }
 }
 
+function showCurrentEvo() {
+    for (let i = 0; i < currentEvos.length; i++) {
+        let evo = currentEvos[i];
+
+        document.getElementById('evolutions-info-box').innerHTML += `
+                        <div class="evolutions-box">
+                            <img class="evo-img" src="./imgs/pokemons/${evo}.gif" alt="">
+                            <div class="evo-name-box">
+                                <p>${evo}</p>
+                            </div>
+
+                        </div>
+        `
+
+    }
+}
+
 
 /***_________________________________________ */
 
@@ -378,20 +396,8 @@ async function evolutionsInfo(i) {
     console.log(pokemonChain);
     currentEvos = [];
     logEvolutionChain(pokemonChain)
-        
+
     return ` <div class="evolutions-info-box" id="evolutions-info-box">
-
-                        <div class="evolutions-box">
-                            <img class="evo-img" src="" alt="">
-                            <div class="evo-name-box">
-                                <p>PokeName</p><p>pokeID</p>
-                            </div>
-                            <div class="evo-types-box">
-                                <p>Grass</p>
-                                <p>poison</p>
-                            </div>
-
-                        </div>
 
                     </div>`
 }
