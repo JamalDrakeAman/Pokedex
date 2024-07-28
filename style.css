@@ -450,6 +450,7 @@ width: 230px;
     border: solid 1px black;
     margin: 0 20px;
     cursor: pointer;
+    z-index: 1;
 }
 
 
@@ -703,9 +704,6 @@ width: 230px;
         margin: 5px;
         overflow: hidden;
         padding: 15px;
-    }
-
-    .overlaycard-info-container {
     }
 
     .overlaycard-navbar {

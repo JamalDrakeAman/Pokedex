@@ -56,7 +56,7 @@ async function fetchPokemeonDetails() {
 //Laden aller Evolutionsketten
 async function loadAllEvolutions() {
     let promises = [];
-    for (let i = 1; i < 10; i++) {
+    for (let i = 1; i < 100; i++) {
         promises.push(fetch('https://pokeapi.co/api/v2/evolution-chain/' + i).then(r => r.json()));
 
     }
@@ -215,16 +215,16 @@ function goBackward(i) {
     showPokemonCard(currentPokemon);
 }
 
-// ------------------------------------------------------------
-//                      Helper Functions
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------------
+//                                   Helper Functions
+// -----------------------------------------------------------------------------------
 
 // Wandelt die zahl in ein string un füllt bis auf die 3te stelle mit 0
 function formatNumber(number) {
     return number.toString().padStart(3, '0');
 }
 
-
+// Erhöht die ladezahl und löscht die arrays der daten
 function loadMorePokemon() {
     let loadMore = 25;
     if (loadLimit < 150) {
@@ -233,9 +233,10 @@ function loadMorePokemon() {
             document.getElementById("poke-load-bt").classList.add('d-none');
         }
     }
-    pokemons.splice(0, pokemons.length)
-    pokemonsURL.splice(0, pokemonsURL.length)
-    init()
+    pokemons.splice(0, pokemons.length);
+    pokemonsURL.splice(0, pokemonsURL.length);
+    pokemonDetails.splice(0, pokemonDetails.length);
+    init();
 }
 
 function filterPokemons() {
