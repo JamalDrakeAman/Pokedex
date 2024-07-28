@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <link rel="icon" type="image/vnd.icon" href="imgs/icons/pokeball.png">
     <title>Pokedex</title>
     <link rel="stylesheet" href="style.css">
@@ -38,7 +38,7 @@
     </section>
 
     <section id="loadNextPokemons" class="loadNextPokemons">
-        <button class="poke-load-bt" onclick="loadMorePokemon()">
+        <button id="poke-load-bt" class="poke-load-bt" onclick="loadMorePokemon()">
             <img class="pikachu-img" src="./imgs/icons/pikachu-pokemon.gif" alt="">
             <p>Load More Pokemons</p>
         </button>

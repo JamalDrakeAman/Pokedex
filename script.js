@@ -1,6 +1,5 @@
-let loadstart = 0;
 let loadLimit = 26;
-let BASE_URL = `https://pokeapi.co/api/v2/pokemon?offset=${loadstart}&limit=${loadLimit}`
+let BASE_URL = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=`
 let pokemons = [];
 let pokemonsURL = [];
 let pokemonDetails = [];
@@ -26,7 +25,7 @@ async function init() {
 // -------------------------------------------------------------
 
 async function fetchPokemonData(path = "") {
-    let response = await fetch(BASE_URL + path + '.json');
+    let response = await fetch(BASE_URL + loadLimit + path + '.json');
     let responseAsJson = await response.json();
     let allPokemonsData = responseAsJson.results
 
@@ -230,8 +229,12 @@ function loadMorePokemon() {
     let loadMore = 25;
     if (loadLimit < 150) {
         loadLimit = loadLimit + loadMore
-        loadstart = loadstart + loadMore
+        if (loadLimit == 151) {
+            document.getElementById("poke-load-bt").classList.add('d-none');
+        }
     }
+    pokemons.splice(0, pokemons.length)
+    pokemonsURL.splice(0, pokemonsURL.length)
     init()
 }
 
