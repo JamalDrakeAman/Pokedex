@@ -235,6 +235,30 @@ function loadMorePokemon() {
     init()
 }
 
+function filterPokemons() {
+    let search = document.getElementById('search-input').value;
+    search = search.toLowerCase()
+    console.log(search);
+
+    let pokedex = document.getElementById('pokedex-container');
+    pokedex.innerHTML = '';
+
+    for (let i = 0; i < pokemons.length; i++) {
+        let pokemon = pokemons[i];
+        let pokeDetail = pokemonDetails[i];
+        console.log(pokeDetail);
+        if (pokemon.toLowerCase().includes(search)) {
+            pokedex.innerHTML += renderPokemonHTML(i, pokemon);
+            for (let d = 0; d < pokeDetail.types.length; d++) {
+                const pokeType = pokeDetail.types[d];
+
+                document.getElementById(`card-footer${i}`).innerHTML += renderPokemonTypeHTML(pokeType);
+            }
+        }
+    }
+
+}
+
 // --------------------------------------------------------------------
 //               Find and Show Evolutions Functions
 //--------------------------------------------------------------------
