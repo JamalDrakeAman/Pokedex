@@ -1,4 +1,6 @@
-let BASE_URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=151"
+let loadstart = 0;
+let loadLimit = 26;
+let BASE_URL = `https://pokeapi.co/api/v2/pokemon?offset=${loadstart}&limit=${loadLimit}`
 let pokemons = [];
 let pokemonsURL = [];
 let pokemonDetails = [];
@@ -85,12 +87,13 @@ async function getLocations(i) {
 
 
 function renderPokemon() {
-
+    let pokedexContainer = document.getElementById('pokedex-container');
+    pokedexContainer.innerHTML = '';
     for (let i = 0; i < pokemons.length; i++) {
         let pokemon = pokemons[i];
         let pokeDetail = pokemonDetails[i];
         console.log(pokeDetail);
-        document.getElementById('pokedex-container').innerHTML += renderPokemonHTML(i, pokemon);
+        pokedexContainer.innerHTML += renderPokemonHTML(i, pokemon);
         for (let d = 0; d < pokeDetail.types.length; d++) {
             const pokeType = pokeDetail.types[d];
 
@@ -222,10 +225,14 @@ function formatNumber(number) {
     return number.toString().padStart(3, '0');
 }
 
-let loudLimit = 20;
 
-function loadMorePokemon(){
-    
+function loadMorePokemon() {
+    let loadMore = 25;
+    if (loadLimit < 150) {
+        loadLimit = loadLimit + loadMore
+        loadstart = loadstart + loadMore
+    }
+    init()
 }
 
 // --------------------------------------------------------------------

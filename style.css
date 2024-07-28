@@ -115,7 +115,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin: 0 20px;
+    margin-left: 15px;
 }
 
 .headline {
@@ -133,7 +133,7 @@ body {
     border-radius: 20px;
     height: 50px;
     width: 200px;
-    margin: 0 20px;
+    margin-right: 10px;
 }
 /*-------------------Section loading Screen--------------------------*/
 
@@ -428,6 +428,7 @@ width: 230px;
     padding: 15px 5px;
     border-radius: 20px;
     overflow-y: auto;
+    width: 100%;
 }
 
 .overlaycard-info-container::-webkit-scrollbar {
@@ -616,7 +617,7 @@ width: 230px;
 
 .poke-load-bt {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     color: white;
     font-size: 30px;
@@ -624,19 +625,23 @@ width: 230px;
     border: solid 1px white;
     border-radius: 20px;
     background-color: #07242E;
-    width: 95%;
+    width: 500px;
     height: 100px;
     cursor: pointer;
+    font-size: 20px;
 }
 
 .pikachu-img {
     height: 90%;
-    margin-right: 25px;
 }
 
 /*--------Responsive---------*/
 
 @media(max-width: 695px) {
+
+    .header{
+        height: 120px;
+    }
 
     .headline-box {
         flex-direction: column;
@@ -687,6 +692,25 @@ width: 230px;
         width: 18px;
     }
 
+    .poke-load-bt {
+        width: 300px;
+    }
+}
+
+@media(max-width: 450px){
+    .pokemon-card-overlay {
+        width: 100%;
+        margin: 5px;
+        overflow: hidden;
+        padding: 15px;
+    }
+
+    .overlaycard-info-container {
+    }
+
+    .overlaycard-navbar {
+        overflow-x: scroll;
+    }
 }
 
 @media(max-width: 385px) {
@@ -699,7 +723,12 @@ width: 230px;
         height: 70%;
     }
 
-    .pokeball-fall-img{
-        height: 30%;
+    .header-search-input {
+        width: 130px;
     }
+
+    .overlaycard-type-box {
+        width: 35%;
+    }
+
 }
