@@ -39,12 +39,10 @@ async function fetchPokemonData(path = "") {
 
 async function fetchPokemeonDetails() {
     let fetchPromises = pokemonsURL.map(url => fetch(url).then(response => response.json()));
-
     await Promise.all(fetchPromises)
         .then(results => {
             results.forEach(pokeDetail => {
                 pokemonDetails.push(pokeDetail)
-
             });
         })
         .catch(error => {
@@ -58,7 +56,6 @@ async function loadAllEvolutions() {
     let promises = [];
     for (let i = 1; i < 100; i++) {
         promises.push(fetch('https://pokeapi.co/api/v2/evolution-chain/' + i).then(r => r.json()));
-
     }
     allEvolutions = await Promise.all(promises);
     console.log(allEvolutions);
@@ -95,7 +92,6 @@ function renderPokemon() {
         pokedexContainer.innerHTML += renderPokemonHTML(i, pokemon);
         for (let d = 0; d < pokeDetail.types.length; d++) {
             const pokeType = pokeDetail.types[d];
-
             document.getElementById(`card-footer${i}`).innerHTML += renderPokemonTypeHTML(pokeType);
         }
     }
@@ -106,7 +102,6 @@ function renderOverlayCard(i) {
     let OverlayCard = document.getElementById('pokemon-card-overlay-container');
     OverlayCard.innerHTML = renderOverlayCardHTML(i);
     let pokemonTypes = document.getElementById('overlaycard-types');
-
     pokemonTypes.innerHTML = '';
     for (let index = 0; index < pokemonDetails[i].types.length; index++) {
         let detail = pokemonDetails[i].types[index];
@@ -116,7 +111,7 @@ function renderOverlayCard(i) {
     showPokemonOverlayCardInfo(i, 'about')
 }
 
-
+//___
 function showPokemonCard(i) {
     renderOverlayCard(i)
     document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
@@ -151,7 +146,7 @@ function renderMoves(i) {
 // ---------------------------------------------------------------------------------------
 //                               OverlayCard Functions
 //----------------------------------------------------------------------------------------
-
+//____
 async function showPokemonOverlayCardInfo(i, info) {
     let pokemonInfo = document.getElementById('overlaycard-poke-info');
     pokemonInfo.innerHTML = '';
@@ -205,14 +200,18 @@ function locationInfo() {
 
 
 function goForward(i) {
-    let currentPokemon = i + 1;
-    showPokemonCard(currentPokemon);
+    if (i < pokemons.length - 1) {
+        let currentPokemon = i + 1;
+        showPokemonCard(currentPokemon);
+    }
 }
 
 
 function goBackward(i) {
-    let currentPokemon = i - 1;
-    showPokemonCard(currentPokemon);
+    if (i > 0) {
+        let currentPokemon = i - 1;
+        showPokemonCard(currentPokemon);
+    }
 }
 
 // -----------------------------------------------------------------------------------
@@ -239,7 +238,7 @@ function loadMorePokemon() {
     init();
 }
 
-function loadAllPokemon(){
+function loadAllPokemon() {
     loadLimit = 151
     document.getElementById("poke-load-bt").classList.add('d-none');
     document.getElementById("load-all-bt").classList.add('d-none');
@@ -249,14 +248,13 @@ function loadAllPokemon(){
     init();
 }
 
+//__
 function filterPokemons() {
     let search = document.getElementById('search-input').value;
     search = search.toLowerCase()
     console.log(search);
-
     let pokedex = document.getElementById('pokedex-container');
     pokedex.innerHTML = '';
-
     for (let i = 0; i < pokemons.length; i++) {
         let pokemon = pokemons[i];
         let pokeDetail = pokemonDetails[i];
@@ -265,7 +263,6 @@ function filterPokemons() {
             pokedex.innerHTML += renderPokemonHTML(i, pokemon);
             for (let d = 0; d < pokeDetail.types.length; d++) {
                 const pokeType = pokeDetail.types[d];
-
                 document.getElementById(`card-footer${i}`).innerHTML += renderPokemonTypeHTML(pokeType);
             }
         }
