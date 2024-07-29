@@ -96,6 +96,18 @@ body {
     background-color: #6F35FC;
 }
 
+.dark {
+    background-color: #705746;
+}
+
+.steel {
+    background-color: #B7B7CE;
+}
+
+.fairy {
+    background-color: #D685AD;
+}
+
 /*----------------------------------------------------------------------All about Header---------------------------------------------------------------------------*/
 .header {
     display: flex;
