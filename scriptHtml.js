@@ -176,9 +176,7 @@ function showCurrentEvoHTML(evo) {
     return `
                         <div class="evolutions-box">
                             <img class="evo-img" src="./imgs/pokemons/${evo}.gif" alt="">
-                            <div class="evo-name-box">
-                                <p>${evo}</p>
-                            </div>
+                            <p class="evo-name">${evo}</p>
                         </div>
         `
 }
