@@ -239,6 +239,16 @@ function loadMorePokemon() {
     init();
 }
 
+function loadAllPokemon(){
+    loadLimit = 151
+    document.getElementById("poke-load-bt").classList.add('d-none');
+    document.getElementById("load-all-bt").classList.add('d-none');
+    pokemons.splice(0, pokemons.length);
+    pokemonsURL.splice(0, pokemonsURL.length);
+    pokemonDetails.splice(0, pokemonDetails.length);
+    init();
+}
+
 function filterPokemons() {
     let search = document.getElementById('search-input').value;
     search = search.toLowerCase()

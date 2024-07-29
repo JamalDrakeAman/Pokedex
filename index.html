@@ -13,10 +13,12 @@
 
 <body id="body" onload="init()">
     <header class="header">
-        <div class="headline-box">
-            <img class="headline-icon" src="./imgs/icons/pokeball.png" alt="">
-            <h1 class="headline">Pokedex</h1>
-        </div>
+        <a class="logo" href="#footer">
+            <div class="headline-box">
+                <img class="headline-icon" src="./imgs/icons/pokeball.png" alt="">
+                <h1 class="headline">Pokedex</h1>
+            </div>
+        </a>
         <input class="search-input" id="search-input" type="text" placeholder="Search" onkeydown="filterPokemons()">
     </header>
 
@@ -42,7 +44,21 @@
             <img class="pikachu-img" src="./imgs/icons/pikachu-pokemon.gif" alt="">
             <p>Load More Pokemons</p>
         </button>
+
+        <button class="load-all-bt" id="load-all-bt" onclick="loadAllPokemon()">
+            Load All Pokemons
+        </button>
     </section>
+
+    <footer id="footer" class="footer">
+
+        <a class="logo" href="#pokedex-container">
+            <div class="headline-box">
+                <img class="headline-icon" src="./imgs/icons/pokeball.png" alt="">
+                <h1 class="headline">Pokedex</h1>
+            </div>
+        </a>
+    </footer>
 
 </body>
 

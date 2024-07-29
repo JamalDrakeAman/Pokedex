@@ -110,11 +110,11 @@ function aboutInfoHTML(pokemonWeight, pokemeonHeight) {
 
 function stateInfoHTML(i) {
     return `<div class="state-info-box">
-                            <table>
+                            <table class="state-table">
                                 <tr>
-                                    <td>HP</td>
-                                    <td>${pokemonDetails[i].stats[0].base_stat}</td>
-                                    <td>  <div class="status-bar"> 
+                                    <td class="state-name">HP</td>
+                                    <td class="state-number">${pokemonDetails[i].stats[0].base_stat}</td>
+                                    <td class ="state-bar">  <div class="status-bar"> 
                                     <div class="status" style="width:${pokemonDetails[i].stats[0].base_stat}%"></div> 
                                     </div></td>
                                 </tr>
