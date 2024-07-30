@@ -58,7 +58,6 @@ async function loadAllEvolutions() {
         promises.push(fetch('https://pokeapi.co/api/v2/evolution-chain/' + i).then(r => r.json()));
     }
     allEvolutions = await Promise.all(promises);
-    console.log(allEvolutions);
 }
 
 
@@ -67,8 +66,6 @@ async function getLocations(i) {
     try {
         let response = await fetch(`https://pokeapi.co/api/v2/location/${i + 1}`);
         let responseAsJson = await response.json();
-        console.log(responseAsJson);
-        console.log(responseAsJson.name);
         document.getElementById('location-name').innerHTML = `${responseAsJson.name}`
     }
     catch {
@@ -88,7 +85,6 @@ function renderPokemon() {
     for (let i = 0; i < pokemons.length; i++) {
         let pokemon = pokemons[i];
         let pokeDetail = pokemonDetails[i];
-        console.log(pokeDetail);
         pokedexContainer.innerHTML += renderPokemonHTML(i, pokemon);
         for (let d = 0; d < pokeDetail.types.length; d++) {
             const pokeType = pokeDetail.types[d];
@@ -105,13 +101,12 @@ function renderOverlayCard(i) {
     pokemonTypes.innerHTML = '';
     for (let index = 0; index < pokemonDetails[i].types.length; index++) {
         let detail = pokemonDetails[i].types[index];
-        console.log(detail);
         pokemonTypes.innerHTML += renderOverlayCardTypeHTML(detail);
     }
     showPokemonOverlayCardInfo(i, 'about')
 }
 
-//___
+
 function showPokemonCard(i) {
     renderOverlayCard(i)
     document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
@@ -146,7 +141,7 @@ function renderMoves(i) {
 // ---------------------------------------------------------------------------------------
 //                               OverlayCard Functions
 //----------------------------------------------------------------------------------------
-//____
+
 async function showPokemonOverlayCardInfo(i, info) {
     let pokemonInfo = document.getElementById('overlaycard-poke-info');
     pokemonInfo.innerHTML = '';
@@ -187,7 +182,6 @@ function movesInfo() {
 async function evolutionsInfo(i) {
     await loadAllEvolutions()
     let pokemonChain = findEvolutionChain(pokemons[i]);
-    console.log(pokemonChain);
     currentEvos = [];
     logEvolutionChain(pokemonChain)
     return evolutionsInfoHTML();
@@ -214,6 +208,7 @@ function goBackward(i) {
     }
 }
 
+
 // -----------------------------------------------------------------------------------
 //                                   Helper Functions
 // -----------------------------------------------------------------------------------
@@ -223,7 +218,7 @@ function formatNumber(number) {
     return number.toString().padStart(3, '0');
 }
 
-// Erhöht die ladezahl und löscht die arrays der daten
+// Erhöht die ladezahl um 25  und löscht die alten daten des arrays
 function loadMorePokemon() {
     let loadMore = 25;
     if (loadLimit < 150) {
@@ -237,7 +232,7 @@ function loadMorePokemon() {
     pokemonDetails.splice(0, pokemonDetails.length);
     init();
 }
-
+// Erhöht die ladezahl auf 151 und löscht die alten daten des arrays
 function loadAllPokemon() {
     loadLimit = 151
     document.getElementById("poke-load-bt").classList.add('d-none');
@@ -248,17 +243,27 @@ function loadAllPokemon() {
     init();
 }
 
-//__
+
 function filterPokemons() {
     let search = document.getElementById('search-input').value;
-    search = search.toLowerCase()
-    console.log(search);
+    search = search.toLowerCase();
     let pokedex = document.getElementById('pokedex-container');
-    pokedex.innerHTML = '';
+
+    if (search.length >= 3) {
+        pokedex.innerHTML = '';
+        renderFilterPokemons(search, pokedex);
+    } else {
+        pokedex.innerHTML = '';
+        renderPokemon()
+    }
+
+}
+
+
+function renderFilterPokemons(search, pokedex) {
     for (let i = 0; i < pokemons.length; i++) {
         let pokemon = pokemons[i];
         let pokeDetail = pokemonDetails[i];
-        console.log(pokeDetail);
         if (pokemon.toLowerCase().includes(search)) {
             pokedex.innerHTML += renderPokemonHTML(i, pokemon);
             for (let d = 0; d < pokeDetail.types.length; d++) {
@@ -267,7 +272,6 @@ function filterPokemons() {
             }
         }
     }
-
 }
 
 // --------------------------------------------------------------------
@@ -305,7 +309,6 @@ function findEvolutionChain(pokemonName) {
 
 // Rekursive Funktion zum Durchlaufen der Evolutionskette
 function logEvolutionChain(chain) {
-    console.log(chain.species.name);
     currentEvos.push(chain.species.name)
     for (let evolve of chain.evolves_to) {
         logEvolutionChain(evolve);

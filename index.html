@@ -12,54 +12,55 @@
 </head>
 
 <body id="body" onload="init()">
-    <header class="header">
-        <a class="logo" href="#footer">
-            <div class="headline-box">
-                <img class="headline-icon" src="./imgs/icons/pokeball.png" alt="">
-                <h1 class="headline">Pokedex</h1>
+    <div class="content">
+        <header class="header">
+            <a class="logo" href="#footer">
+                <div class="headline-box">
+                    <img class="headline-icon" src="./imgs/icons/pokeball.png" alt="">
+                    <h1 class="headline">Pokedex</h1>
+                </div>
+            </a>
+            <input class="search-input" id="search-input" type="text" placeholder="Search" onkeyup="filterPokemons()">
+        </header>
+
+        <section class="loadingScreen" id="loadingScreen">
+
+            <div class="loading-container">
+                <span class="loader"></span>
+                <img class="loader-ball" src="./imgs/icons/falling-pokeball.gif" alt="">
             </div>
-        </a>
-        <input class="search-input" id="search-input" type="text" placeholder="Search" onkeydown="filterPokemons()">
-    </header>
 
-    <section class="loadingScreen" id="loadingScreen">
+        </section>
 
-        <div class="loading-container">
-            <span class="loader"></span>
-            <img class="loader-ball" src="./imgs/icons/falling-pokeball.gif" alt="">
-        </div>
+        <section id="pokedex-container" class="pokedex-container">
 
-    </section>
+        </section>
 
-    <section id="pokedex-container" class="pokedex-container">
+        <section id="pokemon-card-overlay-container">
 
-    </section>
+        </section>
 
-    <section id="pokemon-card-overlay-container">
+        <section id="loadNextPokemons" class="loadNextPokemons">
+            <button id="poke-load-bt" class="poke-load-bt" onclick="loadMorePokemon()">
+                <img class="pikachu-img" src="./imgs/icons/pikachu-pokemon.gif" alt="">
+                <p>Load More Pokemons</p>
+            </button>
 
-    </section>
+            <button class="load-all-bt" id="load-all-bt" onclick="loadAllPokemon()">
+                Load All 151 Pokemons
+            </button>
+        </section>
 
-    <section id="loadNextPokemons" class="loadNextPokemons">
-        <button id="poke-load-bt" class="poke-load-bt" onclick="loadMorePokemon()">
-            <img class="pikachu-img" src="./imgs/icons/pikachu-pokemon.gif" alt="">
-            <p>Load More Pokemons</p>
-        </button>
+        <footer id="footer" class="footer">
 
-        <button class="load-all-bt" id="load-all-bt" onclick="loadAllPokemon()">
-            Load All Pokemons
-        </button>
-    </section>
-
-    <footer id="footer" class="footer">
-
-        <a class="logo" href="#pokedex-container">
-            <div class="headline-box">
-                <img class="headline-icon" src="./imgs/icons/pokeball.png" alt="">
-                <h1 class="headline">Pokedex</h1>
-            </div>
-        </a>
-    </footer>
-
+            <a class="logo" href="#pokedex-container">
+                <div class="headline-box">
+                    <img class="headline-icon" src="./imgs/icons/pokeball.png" alt="">
+                    <h1 class="headline">Pokedex</h1>
+                </div>
+            </a>
+        </footer>
+    </div>
 </body>
 
 </html>

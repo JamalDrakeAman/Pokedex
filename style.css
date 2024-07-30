@@ -3,15 +3,35 @@ html {
 }
 
 body {
+    display: flex;
+    justify-content: center;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    padding: 10px 0 0 0;
+    background-color: #000000;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: #FF4A57;        /* color of the tracking area */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #07242E;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+    border: 1px solid white;  /* creates padding around scroll thumb */
+  }
+
+  .content{
+    max-width: 1440px;
     background-image: url(./imgs/background/pokeball-bg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-}
+  }
 
 /*-----------------------------------------------------------------------All reusable Class---------------------------------------------------------------------*/
 
@@ -823,8 +843,10 @@ body {
         height: 70%;
     }
 
-    .header-search-input {
-        width: 130px;
+    .search-input {
+        height: 30px;
+        width: 150px;
+        margin-right: 4px;
     }
 
     .overlaycard-type-box {
