@@ -5,33 +5,52 @@ html {
 body {
     display: flex;
     justify-content: center;
-    margin: 0;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 1px;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #000000;
-}
-
-body::-webkit-scrollbar {
-    width: 12px;               /* width of the entire scrollbar */
-  }
-  
-  body::-webkit-scrollbar-track {
-    background: #FF4A57;        /* color of the tracking area */
-  }
-  
-  body::-webkit-scrollbar-thumb {
-    background-color: #07242E;    /* color of the scroll thumb */
-    border-radius: 20px;       /* roundness of the scroll thumb */
-    border: 1px solid white;  /* creates padding around scroll thumb */
-  }
-
-  .content{
-    max-width: 1440px;
     background-image: url(./imgs/background/pokeball-bg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-  }
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+    /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: #FF4A57;
+    /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #07242E;
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 1px solid white;
+    /* creates padding around scroll thumb */
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1440px;
+}
+
+.pokemon-content{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1440px;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 
 /*-----------------------------------------------------------------------All reusable Class---------------------------------------------------------------------*/
 
@@ -134,7 +153,7 @@ body::-webkit-scrollbar {
 /*----------------------------------------------------------------------All about Header---------------------------------------------------------------------------*/
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 150px;
     background-color: #07242E;
@@ -143,7 +162,7 @@ body::-webkit-scrollbar {
     position: sticky;
     top: 5px;
     z-index: 3;
-    margin: 0 5px;
+    width: 100%;
 }
 
 .logo {
