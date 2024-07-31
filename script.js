@@ -107,28 +107,6 @@ function renderOverlayCard(i) {
 }
 
 
-function showPokemonCard(i) {
-    renderOverlayCard(i)
-    document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
-    document.getElementById('body').style.overflowY = 'hidden';
-    document.getElementById('goForward').addEventListener('click',
-        function (event) {
-            event.stopPropagation();
-        });
-    document.getElementById('goBack').addEventListener('click',
-        function (event) {
-            event.stopPropagation();
-        });
-    document.getElementById('pokemon-card-overlay-bg').addEventListener('click', function (event) {
-        const dialog = document.getElementById('pokemon-card-overlay');
-        if (!dialog.contains(event.target)) {
-            document.getElementById('pokemon-card-overlay-bg').style.display = 'none';
-            document.getElementById('body').style.overflowY = 'visible';
-        }
-    });
-}
-
-
 function renderMoves(i) {
     let moves = pokemonDetails[i].moves
     for (let m = 0; m < moves.length; m++) {
@@ -213,10 +191,38 @@ function goBackward(i) {
 //                                   Helper Functions
 // -----------------------------------------------------------------------------------
 
+function showPokemonCard(i) {
+    renderOverlayCard(i)
+    document.getElementById('pokemon-card-overlay-bg').style.display = 'flex';
+    document.getElementById('body').style.overflowY = 'hidden';
+    document.getElementById('goForward').addEventListener('click',
+        function (event) {
+            event.stopPropagation();
+        });
+    document.getElementById('goBack').addEventListener('click',
+        function (event) {
+            event.stopPropagation();
+        });
+    document.getElementById('pokemon-card-overlay-bg').addEventListener('click', function (event) {
+        const dialog = document.getElementById('pokemon-card-overlay');
+        if (!dialog.contains(event.target)) {
+            document.getElementById('pokemon-card-overlay-bg').style.display = 'none';
+            document.getElementById('body').style.overflowY = 'visible';
+        }
+    });
+}
+
+
+function closeOverlayCard(){
+    document.getElementById('pokemon-card-overlay-bg').style.display = 'none';
+}
+
 // Wandelt die zahl in ein string un füllt bis auf die 3te stelle mit 0
 function formatNumber(number) {
     return number.toString().padStart(3, '0');
 }
+
+
 
 // Erhöht die ladezahl um 25  und löscht die alten daten des arrays
 function loadMorePokemon() {

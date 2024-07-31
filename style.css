@@ -42,13 +42,12 @@ body::-webkit-scrollbar-thumb {
     max-width: 1440px;
 }
 
-.pokemon-content{
+.pokemon-content {
     display: flex;
     justify-content: center;
     width: 100%;
     max-width: 1440px;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 
@@ -418,6 +417,24 @@ body::-webkit-scrollbar-thumb {
     border-radius: 20px;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
     filter: drop-shadow(0 1px 13px rgba(255, 255, 255, 1.2));
+}
+
+.close-bt {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    position: absolute;
+    right: 22px;
+    top: 62px;
+    background-color: #C22E28;
+    border: solid 1px white;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-bt:hover{
+    transform: scale(1.1);
 }
 
 /*---------Overlay Card contents---------*/
@@ -809,6 +826,11 @@ body::-webkit-scrollbar-thumb {
         width: 100%;
         background-size: cover;
     }
+
+    .pokemon-card:hover {
+        transform: scale(1.0);
+    }
+
 
     .poke-card-type-box {
         height: 25px;

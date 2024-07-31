@@ -40,6 +40,8 @@ function renderOverlayCardHTML(i) {
     <div id="pokemon-card-overlay-bg" class="pokemon-card-overlay-bg">
             <div id="pokemon-card-overlay" class="pokemon-card-overlay" style="background-image: url(./imgs/type-background/background-${pokemonDetails[i].types[0].type.name}.png)">
 
+            <button class="close-bt" onclick="closeOverlayCard()">close</button>
+            
                 <div class="overlaycard-header">
                      <div class="overlaycard-name-container">
                         <p class="overlaycard-id">#${formatNumber(i + 1)}</p>
