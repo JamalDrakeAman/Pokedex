@@ -424,16 +424,13 @@ body::-webkit-scrollbar-thumb {
     height: 50px;
     border-radius: 25px;
     position: absolute;
-    right: 22px;
+    right: 18px;
     top: 62px;
-    background-color: #C22E28;
-    border: solid 1px white;
-    color: white;
     font-weight: bold;
     cursor: pointer;
 }
 
-.close-bt:hover{
+.close-bt:hover {
     transform: scale(1.1);
 }
 
