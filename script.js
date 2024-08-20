@@ -20,64 +20,9 @@ async function init() {
 }
 
 
-// -----------------------------------------------------------
-//                   Fetch Data Functions
-// -------------------------------------------------------------
-
-async function fetchPokemonData(path = "") {
-    let response = await fetch(BASE_URL + loadLimit + path + '.json');
-    let responseAsJson = await response.json();
-    let allPokemonsData = responseAsJson.results
-
-    allPokemonsData.forEach(pokemon => {
-        pokemons.push(pokemon.name)
-        pokemonsURL.push(pokemon.url)
-
-    });
-}
-
-
-async function fetchPokemeonDetails() {
-    let fetchPromises = pokemonsURL.map(url => fetch(url).then(response => response.json()));
-    await Promise.all(fetchPromises)
-        .then(results => {
-            results.forEach(pokeDetail => {
-                pokemonDetails.push(pokeDetail)
-            });
-        })
-        .catch(error => {
-            console.error('Es gab ein Problem mit einer der Fetch-Anfragen', error);
-        })
-}
-
-
-//Laden aller Evolutionsketten
-async function loadAllEvolutions() {
-    let promises = [];
-    for (let i = 1; i < 100; i++) {
-        promises.push(fetch('https://pokeapi.co/api/v2/evolution-chain/' + i).then(r => r.json()));
-    }
-    allEvolutions = await Promise.all(promises);
-}
-
-
-//Laden der Locations
-async function getLocations(i) {
-    try {
-        let response = await fetch(`https://pokeapi.co/api/v2/location/${i + 1}`);
-        let responseAsJson = await response.json();
-        document.getElementById('location-name').innerHTML = `${responseAsJson.name}`
-    }
-    catch {
-        console.log('Pokemon Daten nicht gefunden');
-    }
-}
-
-
 // ------------------------------------------------------------
 //                      Render Functions
 // ------------------------------------------------------------
-
 
 function renderPokemon() {
     let pokedexContainer = document.getElementById('pokedex-container');
@@ -116,77 +61,6 @@ function renderMoves(i) {
 }
 
 
-// ---------------------------------------------------------------------------------------
-//                               OverlayCard Functions
-//----------------------------------------------------------------------------------------
-
-async function showPokemonOverlayCardInfo(i, info) {
-    let pokemonInfo = document.getElementById('overlaycard-poke-info');
-    pokemonInfo.innerHTML = '';
-    if (info == 'about') {
-        pokemonInfo.innerHTML = aboutInfo(i);
-    } else if (info == 'state') {
-        pokemonInfo.innerHTML = stateInfo(i);
-    } else if (info == 'moves') {
-        pokemonInfo.innerHTML = movesInfo(i);
-        renderMoves(i);
-    } else if (info == 'evolutions') {
-        pokemonInfo.innerHTML = await evolutionsInfo(i);
-        showCurrentEvo()
-    } else if (info == 'location') {
-        pokemonInfo.innerHTML = locationInfo(i);
-        getLocations(i);
-    }
-}
-
-
-function aboutInfo(i) {
-    let pokemonWeight = pokemonDetails[i].weight / 10;
-    let pokemeonHeight = pokemonDetails[i].height / 10;
-    return aboutInfoHTML(pokemonWeight, pokemeonHeight);
-}
-
-
-function stateInfo(i) {
-    return stateInfoHTML(i);
-}
-
-
-function movesInfo() {
-    return movesInfoHTML()
-}
-
-
-async function evolutionsInfo(i) {
-    await loadAllEvolutions()
-    let pokemonChain = findEvolutionChain(pokemons[i]);
-    currentEvos = [];
-    logEvolutionChain(pokemonChain)
-    return evolutionsInfoHTML();
-}
-
-
-function locationInfo() {
-    return locationInfoHTML();
-}
-
-
-function goForward(i) {
-    if (i < pokemons.length - 1) {
-        let currentPokemon = i + 1;
-        showPokemonCard(currentPokemon);
-    }
-}
-
-
-function goBackward(i) {
-    if (i > 0) {
-        let currentPokemon = i - 1;
-        showPokemonCard(currentPokemon);
-    }
-}
-
-
 // -----------------------------------------------------------------------------------
 //                                   Helper Functions
 // -----------------------------------------------------------------------------------
@@ -213,15 +87,16 @@ function showPokemonCard(i) {
 }
 
 
-function closeOverlayCard(){
+function closeOverlayCard() {
     document.getElementById('pokemon-card-overlay-bg').style.display = 'none';
+    document.getElementById('body').style.overflowY = 'visible';
 }
+
 
 // Wandelt die zahl in ein string un füllt bis auf die 3te stelle mit 0
 function formatNumber(number) {
     return number.toString().padStart(3, '0');
 }
-
 
 
 // Erhöht die ladezahl um 25  und löscht die alten daten des arrays
@@ -238,6 +113,8 @@ function loadMorePokemon() {
     pokemonDetails.splice(0, pokemonDetails.length);
     init();
 }
+
+
 // Erhöht die ladezahl auf 151 und löscht die alten daten des arrays
 function loadAllPokemon() {
     loadLimit = 151
@@ -249,85 +126,6 @@ function loadAllPokemon() {
     init();
 }
 
-
-function filterPokemons() {
-    let search = document.getElementById('search-input').value;
-    search = search.toLowerCase();
-    let pokedex = document.getElementById('pokedex-container');
-
-    if (search.length >= 3) {
-        pokedex.innerHTML = '';
-        renderFilterPokemons(search, pokedex);
-    } else {
-        pokedex.innerHTML = '';
-        renderPokemon()
-    }
-
-}
-
-
-function renderFilterPokemons(search, pokedex) {
-    for (let i = 0; i < pokemons.length; i++) {
-        let pokemon = pokemons[i];
-        let pokeDetail = pokemonDetails[i];
-        if (pokemon.toLowerCase().includes(search)) {
-            pokedex.innerHTML += renderPokemonHTML(i, pokemon);
-            for (let d = 0; d < pokeDetail.types.length; d++) {
-                const pokeType = pokeDetail.types[d];
-                document.getElementById(`card-footer${i}`).innerHTML += renderPokemonTypeHTML(pokeType);
-            }
-        }
-    }
-}
-
-// --------------------------------------------------------------------
-//               Find and Show Evolutions Functions
-//--------------------------------------------------------------------
-
-// Hilfsfunktion, um ein Pokémon rekursiv in einer Kette zu finden
-// Helper function to find a Pokémon in a chain recursively
-function findInChain(chain, name) {
-    if (chain.species.name === name) {
-        return chain;
-    }
-    for (let evolve of chain.evolves_to) {
-        const result = findInChain(evolve, name);
-        if (result) {
-            return result;
-        }
-    }
-    return null;
-}
-
-
-// Iteriere durch alle Evolutionen, um das passende Pokémon zu finden
-// Iterate through all evolutions to find the matching Pokémon
-function findEvolutionChain(pokemonName) {
-    for (let evolution of allEvolutions) {
-        const result = findInChain(evolution.chain, pokemonName);
-        if (result) {
-            return result;
-        }
-    }
-    return null; // Null zurückgeben, wenn das Pokémon nicht gefunden wird    // Return null if Pokémon is not found
-}
-
-
-// Rekursive Funktion zum Durchlaufen der Evolutionskette
-function logEvolutionChain(chain) {
-    currentEvos.push(chain.species.name)
-    for (let evolve of chain.evolves_to) {
-        logEvolutionChain(evolve);
-    }
-}
-
-
-function showCurrentEvo() {
-    for (let i = 0; i < currentEvos.length; i++) {
-        let evo = currentEvos[i];
-        document.getElementById('evolutions-info-box').innerHTML += showCurrentEvoHTML(evo);
-    }
-}
 
 
 

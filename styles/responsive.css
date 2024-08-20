@@ -1,0 +1,104 @@
+/*--------Responsive---------*/
+
+@media(max-width: 695px) {
+
+    .header {
+        height: 120px;
+    }
+
+    .headline-box {
+        flex-direction: column;
+        gap: unset;
+    }
+
+    .headline {
+        font-size: 25px;
+    }
+
+    .headline-icon {
+        height: 30px;
+        width: 30px;
+    }
+
+    .pokedex-container {
+        padding: 10px;
+    }
+
+    .pokemon-card {
+        flex-direction: column;
+        height: 250px;
+        width: 100%;
+        background-size: cover;
+    }
+
+    .pokemon-card:hover {
+        transform: scale(1.0);
+    }
+
+    .poke-card-type-box {
+        height: 25px;
+        width: 75px;
+    }
+
+    .card-detail {
+        flex-direction: row-reverse;
+        justify-content: left;
+        align-items: center;
+        gap: 20%;
+    }
+
+    .card-types {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 15px;
+        margin-left: 15px;
+    }
+
+    .card-type-img {
+        height: 18px;
+        width: 18px;
+    }
+
+    .poke-load-bt {
+        width: 300px;
+    }
+}
+
+
+
+@media(max-width: 450px) {
+    .pokemon-card-overlay {
+        width: 100%;
+        margin: 5px;
+        overflow: hidden;
+        padding: 55px 15px 15px 15px;
+    }
+
+    .overlaycard-navbar {
+        overflow-x: scroll;
+    }
+}
+
+
+
+@media(max-width: 385px) {
+
+    .card-detail {
+        gap: 5%;
+    }
+
+    .pikachu-img {
+        height: 70%;
+    }
+
+    .search-input {
+        height: 30px;
+        width: 150px;
+        margin-right: 4px;
+    }
+
+    .overlaycard-type-box {
+        width: 35%;
+    }
+
+}

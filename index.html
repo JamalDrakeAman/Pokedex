@@ -6,12 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <link rel="icon" type="image/vnd.icon" href="imgs/icons/pokeball.png">
     <title>Pokedex</title>
+
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/colors.css">
+    <link rel="stylesheet" href="styles/overlaycard.css">
+    <link rel="stylesheet" href="styles/loadingScreen.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+
     <script src="script.js"></script>
-    <script src="scriptHtml.js"></script>
+    <script src="scripts/fetch.js"></script>
+    <script src="scripts/filter.js"></script>
+    <script src="scripts/overlayCard.js"></script>
+    <script src="scripts/findEvolutions.js"></script>
+    <script src="scripts/templates.js"></script>
 </head>
 
+
 <body id="body" onload="init()">
+
 
     <header class="header">
         <div class="header-content">
@@ -25,6 +37,7 @@
         </div>
     </header>
 
+
     <section class="loadingScreen" id="loadingScreen">
 
         <div class="loading-container">
@@ -33,6 +46,7 @@
         </div>
 
     </section>
+
 
     <section class="pokemon-content">
         <div id="pokedex-container" class="pokedex-container">
@@ -43,7 +57,9 @@
     
     </section>
 
+
     <section id="loadNextPokemons" class="loadNextPokemons">
+
         <button id="poke-load-bt" class="poke-load-bt" onclick="loadMorePokemon()">
             <img class="pikachu-img" src="./imgs/icons/pikachu-pokemon.gif" alt="">
             <p>Load More Pokemons</p>
@@ -54,13 +70,12 @@
         </button>
     </section>
 
-    <section id="pokemon-card-overlay-container">
 
+    <section id="pokemon-card-overlay-container">
     </section>
 
     
     <footer id="footer" class="footer">
-
         <a class="logo" href="#pokedex-container">
             <div class="headline-box">
                 <img class="headline-icon" src="./imgs/icons/pokeball.png" alt="">
