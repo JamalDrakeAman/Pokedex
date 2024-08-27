@@ -55,7 +55,7 @@ function locationInfo() {
 
 
 function goForward(i) {
-    if (i < pokemons.length - 1) {
+    if (i < pokemonDetails.length - 1) {
         let currentPokemon = i + 1;
         showPokemonCard(currentPokemon);
     }

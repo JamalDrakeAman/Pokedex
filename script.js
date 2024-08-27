@@ -1,7 +1,6 @@
+let offset = 0;
 let loadLimit = 26;
-let BASE_URL = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=`
-let pokemons = [];
-let pokemonsURL = [];
+let BASE_URL = `https://pokeapi.co/api/v2/`
 let pokemonDetails = [];
 let allEvolutions = [];
 let currentEvos = [];
@@ -14,7 +13,7 @@ let currentEvos = [];
 async function init() {
     document.getElementById('loadingScreen').classList.remove('d-none');
     await fetchPokemonData();
-    await fetchPokemeonDetails();
+    // await fetchPokemeonDetails();
     document.getElementById('loadingScreen').classList.add('d-none');
     renderPokemon()
 }
@@ -27,10 +26,9 @@ async function init() {
 function renderPokemon() {
     let pokedexContainer = document.getElementById('pokedex-container');
     pokedexContainer.innerHTML = '';
-    for (let i = 0; i < pokemons.length; i++) {
-        let pokemon = pokemons[i];
+    for (let i = 0; i < pokemonDetails.length; i++) {
         let pokeDetail = pokemonDetails[i];
-        pokedexContainer.innerHTML += renderPokemonHTML(i, pokemon);
+        pokedexContainer.innerHTML += renderPokemonHTML(i, pokeDetail.name);
         for (let d = 0; d < pokeDetail.types.length; d++) {
             const pokeType = pokeDetail.types[d];
             document.getElementById(`card-footer${i}`).innerHTML += renderPokemonTypeHTML(pokeType);
@@ -102,27 +100,24 @@ function formatNumber(number) {
 // Erhöht die ladezahl um 25  und löscht die alten daten des arrays
 function loadMorePokemon() {
     let loadMore = 25;
-    if (loadLimit < 150) {
-        loadLimit = loadLimit + loadMore
-        if (loadLimit == 151) {
-            document.getElementById("poke-load-bt").classList.add('d-none');
-        }
+    if (pokemonDetails.length < 150) {
+        offset = pokemonDetails.length
+        loadLimit = loadMore
+        init();
+    } 
+    if (pokemonDetails.length + loadMore > 150){
+        document.getElementById("poke-load-bt").classList.add('d-none');
+        document.getElementById("load-all-bt").classList.add('d-none');
     }
-    pokemons.splice(0, pokemons.length);
-    pokemonsURL.splice(0, pokemonsURL.length);
-    pokemonDetails.splice(0, pokemonDetails.length);
-    init();
 }
 
 
 // Erhöht die ladezahl auf 151 und löscht die alten daten des arrays
 function loadAllPokemon() {
-    loadLimit = 151
+    loadLimit = 151 - pokemonDetails.length;
+    offset = pokemonDetails.length
     document.getElementById("poke-load-bt").classList.add('d-none');
     document.getElementById("load-all-bt").classList.add('d-none');
-    pokemons.splice(0, pokemons.length);
-    pokemonsURL.splice(0, pokemonsURL.length);
-    pokemonDetails.splice(0, pokemonDetails.length);
     init();
 }
 

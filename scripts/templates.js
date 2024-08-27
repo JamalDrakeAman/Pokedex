@@ -45,7 +45,7 @@ function renderOverlayCardHTML(i) {
                 <div class="overlaycard-header">
                      <div class="overlaycard-name-container">
                         <p class="overlaycard-id">#${formatNumber(i + 1)}</p>
-                        <p class="overlaycard-name">${pokemons[i]}</p>
+                        <p class="overlaycard-name">${pokemonDetails[i].name}</p>
                      </div>
 
                      <div id="overlaycard-types" class="overlaycard-types">
@@ -54,7 +54,7 @@ function renderOverlayCardHTML(i) {
 
                 </div>
 
-                <img class="overlaycard-img" src="./imgs/pokemons/${pokemons[i]}.gif" alt="">
+                <img class="overlaycard-img" src="./imgs/pokemons/${pokemonDetails[i].name}.gif" alt="">
 
                 
 

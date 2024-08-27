@@ -2,30 +2,18 @@
 //                   Fetch Data Functions
 // -------------------------------------------------------------
 
-async function fetchPokemonData(path = "") {
-    let response = await fetch(BASE_URL + loadLimit + path + '.json');
+
+async function fetchPokemonData(path = `pokemon?offset=${offset}&limit=${loadLimit}`) {
+    let response = await fetch(BASE_URL + path + '.json');
     let responseAsJson = await response.json();
     let allPokemonsData = responseAsJson.results
 
-    allPokemonsData.forEach(pokemon => {
-        pokemons.push(pokemon.name)
-        pokemonsURL.push(pokemon.url)
+    let promise = allPokemonsData.map(pokemon => {
+        return fetch(pokemon.url).then(response => response.json());
+    })
 
-    });
-}
-
-
-async function fetchPokemeonDetails() {
-    let fetchPromises = pokemonsURL.map(url => fetch(url).then(response => response.json()));
-    await Promise.all(fetchPromises)
-        .then(results => {
-            results.forEach(pokeDetail => {
-                pokemonDetails.push(pokeDetail)
-            });
-        })
-        .catch(error => {
-            console.error('Es gab ein Problem mit einer der Fetch-Anfragen', error);
-        })
+    let results = await Promise.all(promise);
+    pokemonDetails.push(...results);
 }
 
 
